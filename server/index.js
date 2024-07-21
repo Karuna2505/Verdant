@@ -28,7 +28,7 @@ mongoose.connect(process.env.MONGODB_URL, { useNewUrlParser: true, useUnifiedTop
 
 const Plant = mongoose.model('Plant', plantSchema);
     
-    app.get('/api/plants', async (req, res) => {
+    app.get('/', async (req, res) => {
         try {
             const plants = await Plant.find();
             res.json(plants);
