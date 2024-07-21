@@ -11,10 +11,10 @@ const Filter = ({title,category}) => {
 
   <hr className='bg-[#357b57] h-[2px] w-full'/>
   <div className='flex justify-between'>
-  <h1>{title}</h1>
+  <h1 className='text-lg'>{title}</h1>
   <h1 className='font-medium mt-1' onClick={toggleSign}>{isOpen ? <FaMinus /> :<FaPlus />}</h1>
   </div>
-  <ul className={`text-sm  ${isOpen ? 'block' : 'hidden'}`}>
+  <ul className={`text-base  ${isOpen ? 'block' : 'hidden'}`}>
     {category.map(item=>{
       return <div className='flex gap-2'><input type='checkbox' className='checked:bg-[#357b57] hover:bg-[#357b57]'/><li>{item}</li></div>
     })}

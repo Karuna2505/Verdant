@@ -28,8 +28,8 @@ const Navbar = () => {
   };
 
   return (
-    <div className="">
-      <div className="nav h-auto w-full fixed flex justify-between text-[#397b57] bg-[#b1c6bb] md:text-white md:bg-[#397b57] px-6 md:px-10 py-4 lg:px-20">
+    <div className="fixed top-0">
+      <div className="nav h-auto w-full fixed flex justify-between text-[#397b57] bg-[#b1c6bb] md:text-white md:bg-[#397b57] px-6 md:px-10 py-5 lg:px-20">
         <div className="flex">
           <img
             src={windowWidth > 768 ? "/icon.png" : "/icon-green.png"}
@@ -37,34 +37,33 @@ const Navbar = () => {
             className="h-6 w-6"
           />
           <Link to="/">
-            <h1 className="text-2xl font-semibold">Verdant</h1>
+            <h1 className="text-3xl font-semibold">Verdant</h1>
           </Link>
         </div>
         <div className="gap-8 lg:gap-32 md:gap-12 flex">
           {windowWidth > 768 ? (
             <>
-              {" "}
-              <div className="flex gap-12 md:gap-8 lg:gap-12 text-xs pt-3 justify-center">
-                <Link to="/collections/plants" className="hover:scale-105">
+              <div className="flex gap-12 md:gap-8 lg:gap-12 text-sm pt-3 justify-center font-normal">
+                <Link to="/collections/plants" className="hover:scale-110">
                   PLANTS
                 </Link>
-                <Link to="/collections/pots" className="hover:scale-105">
+                <Link to="/collections/pots" className="hover:scale-110">
                   POTS
                 </Link>
-                <Link to="/pages/gifting" className="hover:scale-105">
+                <Link to="/pages/gifting" className="hover:scale-110">
                   GIFTING
                 </Link>
-                <Link to="/pages/blog" className="hover:scale-105">
+                <Link to="/pages/blog" className="hover:scale-110">
                   BLOG
                 </Link>
               </div>
-              <div className="flex justify-end relative pt-1">
+              <div className="flex justify-end md:justify-center md:items-center relative pt-2">
                 <input
-                  className="bg-white text-[#397b57] text-xs rounded-3xl focus:outline-none py-2 pl-2 pr-0 sm:pr-8 h-6 placeholder:text-xs"
+                  className="bg-white text-[#397b57] text-sm rounded-3xl focus:outline-none py-2 pl-2 pr-0 sm:pr-8 h-6 placeholder:text-sm"
                   placeholder="Search for plants,seeds and pots"
                 />
-                <CiSearch className="h-7 w-7 absolute top-0 right-14 text-[#397b57] p-1 cursor-pointer" />
-                <FaCartShopping className="h-5 w-5 mx-4 pt-1" />
+                <CiSearch className="h-6 w-6 absolute top-0 right-14 text-[#397b57] cursor-pointer mt-2" />
+                <FaCartShopping className="h-6 w-6 mx-4 pt-1" />
               </div>
             </>
           ) : (
@@ -72,7 +71,7 @@ const Navbar = () => {
               {isMenuOpen ? (
                 <>
                   <IoIosClose className="h-8 w-8" onClick={toggleMenu} />
-                  <div className="fixed flex gap-8 flex-col justify-end bg-[#397b57] text-white top-16 w-max h-max right-0 p-6 rounded-l-2xl">
+                  <div className="fixed flex gap-8 flex-col items-center bg-[#397b57] text-white top-16 w-1/3 h-max right-0 py-2 rounded-l-2xl text-lg">
                     <Link
                       to="/collections/plants"
                       className="hover:font-semibold"
@@ -112,16 +111,7 @@ const Navbar = () => {
           )}
         </div>
       </div>
-      <div className="bg-[#b1c6bb] flex justify-center">
-        {windowWidth < 768 && (
-          <>
-            <input
-              className="bg-white text-black text-xs rounded-3xl border border-[#397b57] py-2 pl-2 h-8 placeholder:text-xs w-11/12 mb-3"
-              placeholder="Search for plants,seeds and pots"
-            />
-          </>
-        )}
-      </div>
+     
     </div>
   );
 };

@@ -4,7 +4,7 @@ const PlantCard = ({name,price,url}) => {
   return (
     <div className='flex flex-col items-start  rounded-2xl overflow-hidden gap-2'>
     <div className='overflow-hidden '>
-      <img src={url} alt={name} className='w-52 h-56 transition-transform duration-300 ease-in-out hover:scale-105'/>
+      <img src={url} alt={name} className='w-60 h-64 transition-transform duration-300 ease-in-out hover:scale-105'/>
     </div>  
       <p className='font-bold'>{name}</p>
       <h1 className='text-base'>Rs.{price}</h1>
