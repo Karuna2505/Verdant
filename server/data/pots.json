@@ -1,0 +1,227 @@
+[
+    {
+      "name": "Classic Ceramic Pot",
+      "image_url": "https://example.com/images/classic-ceramic-pot.jpg",
+      "description": "A timeless classic, this ceramic pot adds a touch of elegance to any plant.",
+      "price": 29.99,
+      "size": "Medium",
+      "color": "White"
+    },
+    {
+      "name": "Modern Plastic Planter",
+      "image_url": "https://example.com/images/modern-plastic-planter.jpg",
+      "description": "Durable and lightweight, this plastic planter is perfect for indoor and outdoor use.",
+      "price": 14.99,
+      "size": "Large",
+      "color": "Grey"
+    },
+    {
+      "name": "Vintage Terracotta Pot",
+      "image_url": "https://example.com/images/vintage-terracotta-pot.jpg",
+      "description": "Add a rustic charm to your space with this vintage terracotta pot.",
+      "price": 19.99,
+      "size": "Small",
+      "color": "Brown"
+    },
+    {
+      "name": "Elegant Metal Planter",
+      "image_url": "https://example.com/images/elegant-metal-planter.jpg",
+      "description": "Sleek and modern, this metal planter suits contemporary decor.",
+      "price": 24.99,
+      "size": "Medium",
+      "color": "Silver"
+    },
+    {
+      "name": "Rustic Wooden Pot",
+      "image_url": "https://example.com/images/rustic-wooden-pot.jpg",
+      "description": "Crafted from reclaimed wood, this pot adds a natural touch to any space.",
+      "price": 34.99,
+      "size": "Large",
+      "color": "Natural"
+    },
+    {
+      "name": "Minimalist Concrete Planter",
+      "image_url": "https://example.com/images/minimalist-concrete-planter.jpg",
+      "description": "A minimalist design with a concrete finish, perfect for modern interiors.",
+      "price": 22.99,
+      "size": "Medium",
+      "color": "Grey"
+    },
+    {
+      "name": "Bohemian Macramé Pot",
+      "image_url": "https://example.com/images/bohemian-macrame-pot.jpg",
+      "description": "This hanging macramé pot brings a touch of bohemian style to your home.",
+      "price": 18.99,
+      "size": "Small",
+      "color": "Beige"
+    },
+    {
+      "name": "Chic Glass Vase",
+      "image_url": "https://example.com/images/chic-glass-vase.jpg",
+      "description": "A stylish glass vase ideal for small plants or flowers.",
+      "price": 16.99,
+      "size": "Small",
+      "color": "Clear"
+    },
+    {
+      "name": "Colorful Ceramic Planter",
+      "image_url": "https://example.com/images/colorful-ceramic-planter.jpg",
+      "description": "Brighten up any space with this colorful ceramic planter.",
+      "price": 21.99,
+      "size": "Medium",
+      "color": "Multicolor"
+    },
+    {
+      "name": "Elegant Hanging Basket",
+      "image_url": "https://example.com/images/elegant-hanging-basket.jpg",
+      "description": "A stylish hanging basket for your favorite trailing plants.",
+      "price": 25.99,
+      "size": "Large",
+      "color": "Brown"
+    },
+    {
+      "name": "Sleek Stainless Steel Pot",
+      "image_url": "https://example.com/images/sleek-stainless-steel-pot.jpg",
+      "description": "A sleek stainless steel pot for a modern and polished look.",
+      "price": 27.99,
+      "size": "Medium",
+      "color": "Silver"
+    },
+    {
+      "name": "Vintage Copper Pot",
+      "image_url": "https://example.com/images/vintage-copper-pot.jpg",
+      "description": "This vintage copper pot adds a touch of elegance and warmth.",
+      "price": 32.99,
+      "size": "Medium",
+      "color": "Copper"
+    },
+    {
+      "name": "Rustic Clay Pot",
+      "image_url": "https://example.com/images/rustic-clay-pot.jpg",
+      "description": "A classic clay pot with a rustic finish.",
+      "price": 15.99,
+      "size": "Small",
+      "color": "Terracotta"
+    },
+    {
+      "name": "Contemporary Fiberglass Planter",
+      "image_url": "https://example.com/images/contemporary-fiberglass-planter.jpg",
+      "description": "A contemporary fiberglass planter that combines style and durability.",
+      "price": 28.99,
+      "size": "Large",
+      "color": "Black"
+    },
+    {
+      "name": "Decorative Stone Pot",
+      "image_url": "https://example.com/images/decorative-stone-pot.jpg",
+      "description": "A decorative stone pot that adds a natural element to your space.",
+      "price": 33.99,
+      "size": "Large",
+      "color": "Gray"
+    },
+    {
+      "name": "Handmade Terracotta Pot",
+      "image_url": "https://example.com/images/handmade-terracotta-pot.jpg",
+      "description": "A handmade terracotta pot with a unique, artisanal touch.",
+      "price": 18.49,
+      "size": "Medium",
+      "color": "Brown"
+    },
+    {
+      "name": "Modern Plastic Planter",
+      "image_url": "https://example.com/images/modern-plastic-planter.jpg",
+      "description": "A sleek, modern plastic planter with a minimalistic design.",
+      "price": 12.99,
+      "size": "Small",
+      "color": "White"
+    },
+    {
+      "name": "Classic Stoneware Pot",
+      "image_url": "https://example.com/images/classic-stoneware-pot.jpg",
+      "description": "Classic stoneware pot perfect for any plant.",
+      "price": 21.49,
+      "size": "Medium",
+      "color": "Beige"
+    },
+    {
+      "name": "Luxurious Marble Pot",
+      "image_url": "https://example.com/images/luxurious-marble-pot.jpg",
+      "description": "A luxurious marble pot that adds sophistication to your decor.",
+      "price": 40.99,
+      "size": "Large",
+      "color": "Marble"
+    },
+    {
+      "name": "Compact Metal Planter",
+      "image_url": "https://example.com/images/compact-metal-planter.jpg",
+      "description": "A compact metal planter ideal for small spaces.",
+      "price": 17.49,
+      "size": "Small",
+      "color": "Black"
+    },
+    {
+      "name": "Bright Plastic Pot",
+      "image_url": "https://example.com/images/bright-plastic-pot.jpg",
+      "description": "A bright and cheerful plastic pot for a pop of color.",
+      "price": 10.99,
+      "size": "Small",
+      "color": "Yellow"
+    },
+    {
+      "name": "Rustic Wooden Planter",
+      "image_url": "https://example.com/images/rustic-wooden-planter.jpg",
+      "description": "Rustic wooden planter with a natural finish.",
+      "price": 26.99,
+      "size": "Medium",
+      "color": "Wood"
+    },
+    {
+      "name": "Elegant Porcelain Pot",
+      "image_url": "https://example.com/images/elegant-porcelain-pot.jpg",
+      "description": "An elegant porcelain pot that complements any decor.",
+      "price": 29.49,
+      "size": "Medium",
+      "color": "White"
+    },
+    {
+      "name": "Classic Hanging Planter",
+      "image_url": "https://example.com/images/classic-hanging-planter.jpg",
+      "description": "A classic hanging planter for indoor and outdoor use.",
+      "price": 20.99,
+      "size": "Large",
+      "color": "Green"
+    },
+    {
+      "name": "Vintage Metal Bucket",
+      "image_url": "https://example.com/images/vintage-metal-bucket.jpg",
+      "description": "A vintage metal bucket that can be used as a unique planter.",
+      "price": 15.49,
+      "size": "Medium",
+      "color": "Rust"
+    },
+    {
+      "name": "Contemporary Wooden Pot",
+      "image_url": "https://example.com/images/contemporary-wooden-pot.jpg",
+      "description": "A contemporary wooden pot with clean lines and a sleek finish.",
+      "price": 23.99,
+      "size": "Medium",
+      "color": "Dark Brown"
+    },
+    {
+      "name": "Elegant Glass Planter",
+      "image_url": "https://example.com/images/elegant-glass-planter.jpg",
+      "description": "An elegant glass planter for a modern touch.",
+      "price": 19.99,
+      "size": "Small",
+      "color": "Clear"
+    },
+    {
+      "name": "Classic Earthenware Pot",
+      "image_url": "https://example.com/images/classic-earthenware-pot.jpg",
+      "description": "A classic earthenware pot with a traditional look.",
+      "price": 18.99,
+      "size": "Large",
+      "color": "Terracotta"
+    }
+  ]
+  

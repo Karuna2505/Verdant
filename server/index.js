@@ -27,6 +27,35 @@ mongoose.connect(process.env.MONGODB_URL, { useNewUrlParser: true, useUnifiedTop
     });
 
 const Plant = mongoose.model('Plant', plantSchema);
+
+const potSchema = new mongoose.Schema({
+    name: {
+      type: String,
+      required: true
+    },
+    image_url: {
+      type: String,
+      required: true
+    },
+    description: {
+      type: String,
+      required: true
+    },
+    price: {
+      type: Number,
+      required: true
+    },
+    size: {
+      type: String,
+      required: true
+    },
+    color: {
+      type: String,
+      required: true
+    }
+  });
+  
+  const Pot = mongoose.model('Pot', potSchema);
     
     app.get('/', async (req, res) => {
         try {
@@ -37,6 +66,16 @@ const Plant = mongoose.model('Plant', plantSchema);
             res.status(500).send('Internal Server Error');
         }
     });    
+
+    app.get('/pots' ,async (req,res) => {
+      try {
+        const pots = await Pot.find();
+        res.json(pots);
+    } catch (err) {
+        console.error('Error fetching plants', err);
+        res.status(500).send('Internal Server Error');
+    }
+    })
 
 
 app.listen(port, () => {
