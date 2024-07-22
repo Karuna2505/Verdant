@@ -32,7 +32,6 @@ code {
 
 .sliding-underline {
   position: relative;
-  display: inline-block;
   cursor: pointer;
   overflow: hidden;
 }
@@ -52,9 +51,9 @@ code {
   left: 0;
 }
 
-.home{
-  background-image: url('./assets/plant1.png');
-  background-size: cover;
-  background-position: center;
+.main{
+  background-image: url("../public/plantsrow.png");
+  background-position: bottom;
+  background-size: contain;
   background-repeat: no-repeat;
 }

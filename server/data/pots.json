@@ -1,5 +1,6 @@
 [
   {
+    "id": "1",
     "name": "Classic Ceramic Pot",
     "image_url": "../assets/classic-ceramic-pot.jpg",
     "description": "A timeless classic, this ceramic pot adds a touch of elegance to any plant.",
@@ -8,6 +9,7 @@
     "color": "White"
   },
   {
+    "id": "2",
     "name": "Modern Plastic Planter",
     "image_url": "../assets/modern-plastic-planter.jpg",
     "description": "Durable and lightweight, this plastic planter is perfect for indoor and outdoor use.",
@@ -16,6 +18,7 @@
     "color": "Grey"
   },
   {
+    "id": "3",
     "name": "Vintage Terracotta Pot",
     "image_url": "../assets/vintage-terracotta-pot.jpg",
     "description": "Add a rustic charm to your space with this vintage terracotta pot.",
@@ -24,6 +27,7 @@
     "color": "Brown"
   },
   {
+    "id": "4",
     "name": "Elegant Metal Planter",
     "image_url": "../assets/elegant-metal-planter.jpg",
     "description": "Sleek and modern, this metal planter suits contemporary decor.",
@@ -32,6 +36,7 @@
     "color": "Silver"
   },
   {
+    "id": "5",
     "name": "Rustic Wooden Pot",
     "image_url": "../assets/rustic-wooden-pot.jpg",
     "description": "Crafted from reclaimed wood, this pot adds a natural touch to any space.",
@@ -40,6 +45,7 @@
     "color": "Natural"
   },
   {
+    "id": "6",
     "name": "Minimalist Concrete Planter",
     "image_url": "../assets/minimalist-concrete-planter.jpg",
     "description": "A minimalist design with a concrete finish, perfect for modern interiors.",
@@ -48,6 +54,7 @@
     "color": "Grey"
   },
   {
+    "id": "7",
     "name": "Bohemian Macramé Pot",
     "image_url": "../assets/bohemian-macrame-pot.jpg",
     "description": "This hanging macramé pot brings a touch of bohemian style to your home.",
@@ -56,6 +63,7 @@
     "color": "Beige"
   },
   {
+    "id": "8",
     "name": "Chic Glass Vase",
     "image_url": "../assets/chic-glass-vase.jpg",
     "description": "A stylish glass vase ideal for small plants or flowers.",
@@ -64,6 +72,7 @@
     "color": "Clear"
   },
   {
+    "id": "9",
     "name": "Colorful Ceramic Planter",
     "image_url": "../assets/colorful-ceramic-planter.jpg",
     "description": "Brighten up any space with this colorful ceramic planter.",
@@ -72,6 +81,7 @@
     "color": "Multicolor"
   },
   {
+    "id": "10",
     "name": "Elegant Hanging Basket",
     "image_url": "../assets/elegant-hanging-basket.jpg",
     "description": "A stylish hanging basket for your favorite trailing plants.",
@@ -80,6 +90,7 @@
     "color": "Brown"
   },
   {
+    "id": "11",
     "name": "Sleek Stainless Steel Pot",
     "image_url": "../assets/sleek-stainless-steel-pot.jpg",
     "description": "A sleek stainless steel pot for a modern and polished look.",
@@ -88,6 +99,7 @@
     "color": "Silver"
   },
   {
+    "id": "12",
     "name": "Vintage Copper Pot",
     "image_url": "../assets/vintage-copper-pot.jpg",
     "description": "This vintage copper pot adds a touch of elegance and warmth.",
@@ -96,6 +108,7 @@
     "color": "Copper"
   },
   {
+    "id": "13",
     "name": "Rustic Clay Pot",
     "image_url": "../assets/rustic-clay-pot.jpg",
     "description": "A classic clay pot with a rustic finish.",
@@ -104,6 +117,7 @@
     "color": "Terracotta"
   },
   {
+    "id": "14",
     "name": "Contemporary Fiberglass Planter",
     "image_url": "../assets/contemporary-fiberglass-planter.jpg",
     "description": "A contemporary fiberglass planter that combines style and durability.",
@@ -112,6 +126,7 @@
     "color": "Black"
   },
   {
+    "id": "15",
     "name": "Decorative Stone Pot",
     "image_url": "../assets/decorative-stone-pot.jpg",
     "description": "A decorative stone pot that adds a natural element to your space.",
@@ -120,6 +135,7 @@
     "color": "Gray"
   },
   {
+    "id": "16",
     "name": "Handmade Terracotta Pot",
     "image_url": "../assets/handmade-terracotta-pot.jpg",
     "description": "A handmade terracotta pot with a unique, artisanal touch.",
@@ -128,6 +144,7 @@
     "color": "Brown"
   },
   {
+    "id": "17",
     "name": "Modern Plastic Planter",
     "image_url": "../assets/modern-plastic-planter.jpg",
     "description": "A sleek, modern plastic planter with a minimalistic design.",
@@ -136,6 +153,7 @@
     "color": "White"
   },
   {
+    "id": "18",
     "name": "Classic Stoneware Pot",
     "image_url": "../assets/classic-stoneware-pot.jpg",
     "description": "Classic stoneware pot perfect for any plant.",
@@ -144,6 +162,7 @@
     "color": "Beige"
   },
   {
+    "id": "19",
     "name": "Luxurious Marble Pot",
     "image_url": "../assets/luxurious-marble-pot.jpg",
     "description": "A luxurious marble pot that adds sophistication to your decor.",
@@ -152,6 +171,7 @@
     "color": "Marble"
   },
   {
+    "id": "20",
     "name": "Compact Metal Planter",
     "image_url": "../assets/compact-metal-planter.jpg",
     "description": "A compact metal planter ideal for small spaces.",
@@ -160,6 +180,7 @@
     "color": "Black"
   },
   {
+    "id": "21",
     "name": "Bright Plastic Pot",
     "image_url": "../assets/bright-plastic-pot.jpg",
     "description": "A bright and cheerful plastic pot for a pop of color.",
@@ -168,6 +189,7 @@
     "color": "Yellow"
   },
   {
+    "id": "22",
     "name": "Rustic Wooden Planter",
     "image_url": "../assets/rustic-wooden-planter.jpg",
     "description": "Rustic wooden planter with a natural finish.",
@@ -176,6 +198,7 @@
     "color": "Wood"
   },
   {
+    "id": "23",
     "name": "Elegant Porcelain Pot",
     "image_url": "../assets/elegant-porcelain-pot.jpg",
     "description": "An elegant porcelain pot that complements any decor.",
@@ -184,6 +207,7 @@
     "color": "White"
   },
   {
+    "id": "24",
     "name": "Classic Hanging Planter",
     "image_url": "../assets/classic-hanging-planter.jpg",
     "description": "A classic hanging planter for indoor and outdoor use.",
@@ -192,6 +216,7 @@
     "color": "Green"
   },
   {
+    "id": "25",
     "name": "Vintage Metal Bucket",
     "image_url": "../assets/vintage-metal-bucket.jpg",
     "description": "A vintage metal bucket that can be used as a unique planter.",
@@ -200,6 +225,7 @@
     "color": "Rust"
   },
   {
+    "id": "26",
     "name": "Contemporary Wooden Pot",
     "image_url": "../assets/contemporary-wooden-pot.jpg",
     "description": "A contemporary wooden pot with clean lines and a sleek finish.",
@@ -208,6 +234,7 @@
     "color": "Dark Brown"
   },
   {
+    "id": "27",
     "name": "Elegant Glass Planter",
     "image_url": "../assets/elegant-glass-planter.jpg",
     "description": "An elegant glass planter for a modern touch.",
@@ -216,6 +243,7 @@
     "color": "Clear"
   },
   {
+    "id": "28",
     "name": "Classic Earthenware Pot",
     "image_url": "../assets/classic-earthenware-pot.jpg",
     "description": "A classic earthenware pot with a traditional look.",
@@ -224,4 +252,3 @@
     "color": "Terracotta"
   }
 ]
-

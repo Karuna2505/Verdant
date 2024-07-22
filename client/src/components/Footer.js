@@ -43,14 +43,14 @@ const Footer = () => {
   return (
     <div className='flex flex-col items-center'>
     <hr className='w-full bg-[#397b57]'/>
-    <div className='flex flex-col-reverse md:flex md:flex-row justify-center mx-4 md:mx-12 text-[#397b57] sm:gap-6 md:gap-20 px-4 py-8 sm:py-16'>
-      <div className='flex flex-col sm:flex sm:flex-row gap-2 sm:gap-14'>
+    <div className='flex flex-col-reverse md:flex md:flex-row justify-center mx-4 sm:mx-8 md:mx-12 text-[#397b57] sm:gap-6  lg:gap-20 px-4 py-8 sm:py-16 '>
+      <div className='flex flex-col sm:flex sm:flex-row gap-2 sm:gap-10 lg:gap-14'>
 
 
       {card.map((section, index) => (
     <div key={index} className='w-full sm:w-1/2'>
       <div className='flex gap-6'>
-      <h2 className='mb-6 font-medium text-base'>{section.title}</h2>
+      <h2 className='mb-6 font-medium sm:text-sm md:text-base'>{section.title}</h2>
       <button
               className='block sm:hidden h-7 w-7'
               onClick={() => toggleSection(index)}
@@ -58,9 +58,9 @@ const Footer = () => {
               {openSection === index ? <FaChevronUp /> : <FaChevronDown />}
             </button>
       </div>
-      <ul className={`text-sm ${openSection === index || windowWidth >= 640 ? 'block' : 'hidden'}`}>
+      <ul className={`md:text-xs lg:text-sm ${openSection === index || windowWidth >= 640 ? 'block' : 'hidden'}`}>
         {section.items.map((item, idx) => (
-          <li key={idx} className="py-1 hover:underline">{item}</li>
+          <li key={idx} className="py-1 sliding-underline w-fit">{item}</li>
         ))}
       </ul>
     </div>
@@ -71,18 +71,18 @@ const Footer = () => {
       <div className='w-full sm:w-4/5 md:w-1/5'>
         <h2 className='font-medium text-base mb-4'>SIGN UP FOR OUR NEWSLETTER</h2>
         <p className='text-sm py-1'>For plant care tips,our featured plant of the week,exclusive offers and discounts</p>
-        <div className='flex'>
+        <div className='flex flex-wrap'>
           <input placeholder='Enter email address' className='border-b-2 border-[#92bca5] py-1 outline-none'/>
           <FaArrowRightLong className='mt-3'/>
         </div>
-        <h2 className='pb-1 text-base font-medium mt-2'>FOLLOW US</h2>
-        <div className='flex gap-4 mb-2 '>
-        <FaFacebook className='zoom'/>
-        <FaInstagram className='zoom'/>
-        <FaTwitter className='zoom'/>
-        <FaYoutube className='zoom'/>
+        <h2 className='py-1 text-base font-medium mt-2'>FOLLOW US</h2>
+        <div className='flex gap-4 my-2'>
+        <FaFacebook className='zoom h-6 w-6'/>
+        <FaInstagram className='zoom h-6 w-6'/>
+        <FaTwitter className='zoom h-6 w-6'/>
+        <FaYoutube className='zoom h-6 w-6'/>
         </div>
-        <a href='google.maps.com' className='text-base font-medium '>SITEMAP</a>
+        <a href='google.maps.com' className='text-base font-medium mt-2'>SITEMAP</a>
       </div>
     </div>
     <div className='text-sm font-normal text-[#397b57] my-4 hover:font-medium'>©2024,Verdant.All right reserved.</div>
