@@ -3,7 +3,6 @@ const bodyParser = require('body-parser');
 const cors = require('cors');
 const mongoose = require('mongoose');
 require("dotenv").config();
-const updatedData=require("./data/pots.json");
 const app = express();
 const port = process.env.PORT || 5000;
 
@@ -77,20 +76,7 @@ const potSchema = new mongoose.Schema({
     }
     })
 
-const updateData = async () => {
-  try {
-    for (const data of updatedData) {
-      await Pot.findOneAndUpdate({ name: data.name }, { image_url: data.image_url }, { new: true });
-    }
-    console.log('Data updated successfully!');
-    mongoose.connection.close();
-  } catch (error) {
-    console.error('Error updating data:', error);
-    mongoose.connection.close();
-  }
-};
 
-updateData();
 
 app.listen(port, () => {
     console.log(`Backend server listening at http://localhost:${port}`);
