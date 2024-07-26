@@ -34,7 +34,8 @@ const fetchPlants = async () => {
         </div>
         <div className='w-full  md:w-10/12 flex justify-center items-center flex-wrap gap-4 md:gap-12 my-6'>
         {plants.map((plant) => (
-        <PlantCard plant={plant}/>
+          <PlantCard name={plant.name} url={plant.image_url} price={plant.price} type="plant" />
+
       ))}
         </div>
       </div>

@@ -30,10 +30,10 @@ const Navbar = () => {
 
   return (
     <div className="fixed top-0 w-full z-50">
-      <div className="nav h-auto w-full fixed flex justify-between items-center text-[#397b57] bg-[#b1c6bb] md:text-white md:bg-[#397b57] px-6 md:px-10 py-5 lg:px-20">
+      <div className="nav h-auto w-full fixed flex justify-between items-center  text-white bg-[#397b57] px-6 md:px-10 py-5 lg:px-20">
         <div className="flex items-center">
           <img
-            src={windowWidth > 768 ? "/icon.png" : "/icon-green.png"}
+            src='/icon.png'
             alt="icon"
             className="h-6 w-6 mr-2"
           />
