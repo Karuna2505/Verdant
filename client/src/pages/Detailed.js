@@ -3,7 +3,7 @@ import { FaMinus, FaPlus } from 'react-icons/fa6';
 import { useParams, Link } from 'react-router-dom';
 
 const Detailed = ({ items, type }) => {
-  const [count, setCount] = useState(0);
+  const [count, setCount] = useState(1);
   const { name } = useParams();
   const item = items.find(item => item.name === name);
 

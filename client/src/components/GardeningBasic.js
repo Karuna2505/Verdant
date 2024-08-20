@@ -1,11 +1,14 @@
 import React from 'react'
 
-const GardeningBasic = () => {
+
+const GardeningBasic = ({title,image_url,description}) => {
   return (
-    <div>
-      <img src="./plant4.jpg" alt=""/>
-      <h1>Cow Dung Benefits for Plants: Why Should You Use It?</h1>
-      <p>Cow manure is one of the most traditional and widely used organic fertilizers in gardening and agriculture... and with good reason! Its popularity stems from its natural composition, rich nutrient...</p>
+    <div className=''>
+    <div className='overflow-hidden'>
+      <img src={image_url} alt="" className='w-[30rem] h-[20rem] transition-transform duration-300 hover:scale-105'/>
+      </div>
+      <h1 className='font-semibold text-xl w-[30rem]'>{title}</h1>
+      <p className='w-[30rem]'>{description}</p>
       <button>Read more</button>
     </div>
   )
