@@ -18,7 +18,7 @@ const Home = () => {
             <h1 className="text-3xl font-bold pb-5 pt-10">Ready for your best plant experience?</h1>
             <p>Take the first step towards tranforming your space into lush haven of greenery.</p>
             <p>Browse our exquisite plant collection and let nature's beauty thrive in your home.</p>
-            <Link to="./collections/plants"><button className="bg-[#357b57] text-white px-4 py-2 font-medium rounded-lg m-6 hover:bg-white hover:text-[#357b57]">Shop Now</button></Link>
+            <Link to="./collections/plants"><button className="bg-[#357b57] text-white px-4 py-2 font-medium rounded-lg m-6 shadow-2xl hover:bg-[#4e8f6c]">Shop Now</button></Link>
             </div>
             <div className="h-56 w-56 md:h-72 md:w-72  m-8 overflow-hidden rounded-lg">
             <img src={plant} alt="" className="transition-transform duration-300 ease-in-out hover:scale-105"/>

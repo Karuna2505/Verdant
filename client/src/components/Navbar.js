@@ -44,18 +44,18 @@ const Navbar = () => {
         <div className="flex items-center gap-8 lg:gap-32 md:gap-12">
           {windowWidth > 768 ? (
             <>
-              <div className="flex gap-12 md:gap-8 lg:gap-12 text-sm font-normal">
-                <Link to="/collections/plants" className="hover:scale-110">
-                  PLANTS
+              <div className="flex gap-12 md:gap-8 lg:gap-12 text-base font-normal">
+                <Link to="/collections/plants" className="h-5 w-8">
+                <p className="hover:font-bold">Plants</p>
                 </Link>
-                <Link to="/collections/pots" className="hover:scale-110">
-                  POTS
+                <Link to="/collections/pots" className="h-5 w-8">
+                  <p className="hover:font-bold">Pots</p>
                 </Link>
-                <Link to="/pages/gifting" className="hover:scale-110">
-                  GIFTING
+                <Link to="/pages/gifting" className="h-5 w-8">
+                <p className="hover:font-bold">Gifting</p>
                 </Link>
-                <Link to="/pages/blog" className="hover:scale-110">
-                  BLOG
+                <Link to="/pages/blog" className="h-5 w-8">
+                <p className="hover:font-bold">Blogs</p>
                 </Link>
               </div>
               <div className="flex items-center relative">

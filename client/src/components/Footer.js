@@ -43,7 +43,7 @@ const Footer = () => {
   return (
     <div className='flex flex-col items-center'>
     <hr className='w-full bg-[#397b57]'/>
-    <div className='flex flex-col-reverse md:flex md:flex-row justify-center mx-4 sm:mx-8 md:mx-12 text-[#397b57] sm:gap-6  lg:gap-20 px-4 py-8 sm:py-16 '>
+    <div className='flex flex-col-reverse md:flex md:flex-row justify-center mx-4 sm:mx-8 md:mx-12 text-[#397b57] gap-4 sm:gap-6  lg:gap-20 px-4 py-8 sm:py-16 '>
       <div className='flex flex-col sm:flex sm:flex-row gap-2 sm:gap-10 lg:gap-14'>
 
 

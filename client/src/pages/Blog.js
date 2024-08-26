@@ -27,10 +27,10 @@ const blogs=[
 
 const Blog = () => {
   return (
-    <div className='text-[#357b57] mt-24 mb-8 mx-12 '>
-      <div className='w-full h-auto  flex flex-col gap-6 '>
-      <h1 className='text-3xl font-bold '>Gardening Basics</h1>
-      <div className='grid grid-cols-2 gap-1 justify-around w-[80rem]'>
+    <div className='text-[#357b57] mt-24 mb-8 mx-12'>
+      <h1 className='text-3xl font-bold m-6'>Gardening Basics</h1> 
+      <div className='w-full h-auto  flex flex-col gap-6 items-center'>
+      <div className='grid grid-cols-2 gap-8 justify-around w-[80rem]'>
         {blogs.map(blog=>{
           return <GardeningBasic title={blog.title} image_url={blog.image_url} description={blog.description}/>
         })}
