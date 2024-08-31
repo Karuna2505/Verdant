@@ -1,4 +1,4 @@
-import React,{ useState,useEffect } from 'react'
+import React,{ useState } from 'react'
 import { FaArrowRightLong } from "react-icons/fa6";
 import { FaFacebook,FaInstagram,FaTwitter,FaYoutube,FaChevronDown,FaChevronUp } from "react-icons/fa";
 
@@ -23,22 +23,11 @@ const card=[
 ]
 
 const Footer = () => {
-  const [windowWidth, setWindowWidth] = useState(window.innerWidth);
   const [openSection, setOpenSection] = useState(null);
   const toggleSection = (index) => {
     setOpenSection(openSection === index ? null : index);
   };
-  useEffect(() => {
-    const handleResize = () => {
-      setWindowWidth(window.innerWidth);
-    };
-
-    window.addEventListener("resize", handleResize);
-    return () => {
-      window.removeEventListener("resize", handleResize);
-    };
-  }, []);
-  
+ 
 
   return (
     <div className='flex flex-col items-center'>
@@ -58,11 +47,11 @@ const Footer = () => {
               {openSection === index ? <FaChevronUp /> : <FaChevronDown />}
             </button>
       </div>
-      <ul className={`md:text-xs lg:text-sm ${openSection === index || windowWidth >= 640 ? 'block' : 'hidden'}`}>
-        {section.items.map((item, idx) => (
-          <li key={idx} className="py-1 sliding-underline w-fit">{item}</li>
-        ))}
-      </ul>
+      <ul className={`md:text-xs lg:text-sm ${openSection === index ? 'block' : 'hidden'} sm:block`}>
+  {section.items.map((item, idx) => (
+    <li key={idx} className="py-1 sliding-underline w-fit">{item}</li>
+  ))}
+</ul>
     </div>
         ))}
 
