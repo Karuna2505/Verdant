@@ -57,3 +57,12 @@ code {
   background-size: contain;
   background-repeat: no-repeat;
 }
+
+.swiper-button-next,.swiper-button-prev {
+  size: 2px;
+  right:10px;
+  padding: 30px;
+  color: #357b57 !important;
+  fill: #357b57 !important;
+  stroke: #357b57 !important;
+}

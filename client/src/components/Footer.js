@@ -66,10 +66,10 @@ const Footer = () => {
         </div>
         <h2 className='py-1 text-base font-medium mt-2'>FOLLOW US</h2>
         <div className='flex gap-4 my-2'>
-        <FaFacebook className='zoom h-6 w-6'/>
-        <FaInstagram className='zoom h-6 w-6'/>
-        <FaTwitter className='zoom h-6 w-6'/>
-        <FaYoutube className='zoom h-6 w-6'/>
+        <FaFacebook className='zoom h-6 w-6 cursor-pointer'/>
+        <FaInstagram className='zoom h-6 w-6 cursor-pointer'/>
+        <FaTwitter className='zoom h-6 w-6  cursor-pointer'/>
+        <FaYoutube className='zoom h-6 w-6 cursor-pointer'/>
         </div>
         <a href='google.maps.com' className='text-base font-medium mt-2'>SITEMAP</a>
       </div>
