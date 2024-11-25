@@ -3,10 +3,12 @@ import { Link } from "react-router-dom";
 import { CiSearch, CiMenuFries } from "react-icons/ci";
 import { FaCartShopping } from "react-icons/fa6";
 import { IoIosClose } from "react-icons/io";
+import Cart from "./Cart";
 
 const Navbar = () => {
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [CartIsOpen,setCartIsOpen] =useState(false);
 
   useEffect(() => {
     const handleResize = () => {
@@ -27,6 +29,10 @@ const Navbar = () => {
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
   };
+
+  const toggleCart=()=>{
+    setCartIsOpen(!CartIsOpen);
+  }
 
   return (
     <div className="fixed top-0 w-full z-50">
@@ -64,7 +70,8 @@ const Navbar = () => {
                   placeholder="Search for plants, seeds, and pots"
                 />
                 <CiSearch className="h-6 w-6 absolute top-1/2 transform -translate-y-1/2 right-12 text-[#397b57] cursor-pointer" />
-                <FaCartShopping className="h-6 w-6 ml-4 cursor-pointer" />
+                <FaCartShopping className="h-6 w-6 ml-4 cursor-pointer" onClick={toggleCart}/>
+                {CartIsOpen? <Cart toggle={toggleCart}/> :<></>}
               </div>
             </>
           ) : (
@@ -84,9 +91,6 @@ const Navbar = () => {
                     </Link>
                     <Link to="/pages/blog" className="hover:font-semibold py-2">
                       Blog
-                    </Link>
-                    <Link to="/cart" className="hover:font-semibold py-2">
-                      Cart
                     </Link>
                   </div>
                 </>
