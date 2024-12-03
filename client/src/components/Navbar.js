@@ -3,13 +3,11 @@ import { Link } from "react-router-dom";
 import { CiSearch, CiMenuFries } from "react-icons/ci";
 import { FaCartShopping } from "react-icons/fa6";
 import { IoIosClose } from "react-icons/io";
-import Cart from "./Cart";
+import { MdAccountCircle } from "react-icons/md";
 
 const Navbar = () => {
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [CartIsOpen,setCartIsOpen] =useState(false);
-
   useEffect(() => {
     const handleResize = () => {
       setWindowWidth(window.innerWidth);
@@ -30,9 +28,6 @@ const Navbar = () => {
     setIsMenuOpen(!isMenuOpen);
   };
 
-  const toggleCart=()=>{
-    setCartIsOpen(!CartIsOpen);
-  }
 
   return (
     <div className="fixed top-0 w-full z-50">
@@ -69,9 +64,9 @@ const Navbar = () => {
                   className="bg-white text-[#397b57] text-sm rounded-3xl focus:outline-none py-2 pl-2 pr-8 placeholder:text-sm"
                   placeholder="Search for plants, seeds, and pots"
                 />
-                <CiSearch className="h-6 w-6 absolute top-1/2 transform -translate-y-1/2 right-12 text-[#397b57] cursor-pointer" />
-                <FaCartShopping className="h-6 w-6 ml-4 cursor-pointer" onClick={toggleCart}/>
-                {CartIsOpen? <Cart toggle={toggleCart}/> :<></>}
+                <CiSearch className="h-6 w-6 absolute top-1/2 transform -translate-y-1/2 right-20 text-[#397b57] cursor-pointer" />
+                <Link to="/pages/cart"><FaCartShopping className="h-6 w-6 ml-4 cursor-pointer"/></Link>
+                <Link to="/pages/login"><MdAccountCircle className="h-6 w-6 ml-4 cursor-pointer"/></Link>
               </div>
             </>
           ) : (
@@ -92,10 +87,17 @@ const Navbar = () => {
                     <Link to="/pages/blog" className="hover:font-semibold py-2">
                       Blog
                     </Link>
+                    <Link to="/pages/cart" className="hover:font-semibold py-2">
+                      Cart
+                    </Link>
                   </div>
                 </>
               ) : (
-                <CiMenuFries className="h-6 w-6 cursor-pointer" onClick={toggleMenu} />
+                <div className="flex  gap-4">
+                <Link to="/pages/login"><MdAccountCircle className="h-7 w-7 cursor-pointer"/></Link>
+                <CiMenuFries className="h-6 w-6 cursor-pointer mt-1" onClick={toggleMenu} />
+                
+                </div>
               )}
             </>
           )}

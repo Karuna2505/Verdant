@@ -3,13 +3,18 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
 import { Plants, Pots } from "./collections";
-import { Home, Gifting, Blog } from "./pages";
+import { Home, Gifting, Blog ,Login,Signup } from "./pages";
 import Detailed from "./pages/Detailed";
 import { getPlants, getPots } from "./api";
+import Cart from "./components/Cart";
 
 function App() {
   const [plants, setPlants] = useState([]);
   const [pots, setPots] = useState([]);
+  const [cart,setCart]=useState([]);
+  const handleCart=(product)=>{
+     setCart((prevCart)=>[...prevCart,product])
+  }
 
   useEffect(() => {
     fetchPlants();
@@ -44,8 +49,11 @@ function App() {
           <Route path="/collections/pots" element={<Pots />} />
           <Route path="/pages/gifting" element={<Gifting />} />
           <Route path="/pages/blog" element={<Blog />} />
-          <Route path="/collections/plants/:name" element={<Detailed items={plants} type="plant" />} />
-          <Route path="/collections/pots/:name" element={<Detailed items={pots} type="pot" />} />
+          <Route path="/pages/cart" element={<Cart cartItems={cart}/>} />
+          <Route path="/pages/login" element={<Login />} />
+          <Route path="/pages/signup" element={<Signup />} />
+          <Route path="/collections/plants/:name" element={<Detailed items={plants} type="plant" onAddToCart={handleCart}/>} />
+          <Route path="/collections/pots/:name" element={<Detailed items={pots} type="pot" onAddToCart={handleCart}/>} />
         </Routes>
       </main>
       <Footer />

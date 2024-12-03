@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { FaMinus, FaPlus } from 'react-icons/fa6';
 import { useParams, Link } from 'react-router-dom';
 
-const Detailed = ({ items, type }) => {
+const Detailed = ({ items, type,onAddToCart }) => {
   const [count, setCount] = useState(1);
   const { name } = useParams();
   const item = items.find(item => item.name === name);
@@ -45,7 +45,7 @@ const Detailed = ({ items, type }) => {
           </div>
 
           <div className=' flex flex-col gap-4'>
-            <button className=' bg-[#357b57] font-semibold text-white px-4 py-2 rounded-lg hover:bg-[#b1c6bb] hover:text-[#357b57]'>
+            <button onClick={() => onAddToCart(item)} className=' bg-[#357b57] font-semibold text-white px-4 py-2 rounded-lg hover:bg-[#b1c6bb] hover:text-[#357b57]'>
               Add to Cart
             </button>
             <button className=' bg-[#357b57] font-semibold text-white px-4 py-2 rounded-lg hover:bg-[#b1c6bb] hover:text-[#357b57]'>
