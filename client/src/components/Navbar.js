@@ -5,9 +5,25 @@ import { FaCartShopping } from "react-icons/fa6";
 import { IoIosClose } from "react-icons/io";
 import { MdAccountCircle } from "react-icons/md";
 
-const Navbar = () => {
+const Navbar = (isLoggedIn) => {
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isUserDivOpen,setIsUserDivOpen]=useState(false);
+  const [username, setUsername] = useState("");
+
+  useEffect(() => {
+    fetch("http://localhost:5000/api/me", {
+      method: "GET",
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("authToken")}`, // Make sure the token is retrieved from localStorage
+      },
+    })
+      .then((response) => response.json())
+      .then((data) => console.log(data))
+      .catch((error) => console.error("Error fetching user data:", error));
+    
+  }, []);
+
   useEffect(() => {
     const handleResize = () => {
       setWindowWidth(window.innerWidth);
@@ -27,6 +43,10 @@ const Navbar = () => {
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
   };
+
+  const toggleuser=()=>{
+    setIsUserDivOpen(!isUserDivOpen);
+  }
 
 
   return (
@@ -66,7 +86,16 @@ const Navbar = () => {
                 />
                 <CiSearch className="h-6 w-6 absolute top-1/2 transform -translate-y-1/2 right-20 text-[#397b57] cursor-pointer" />
                 <Link to="/pages/cart"><FaCartShopping className="h-6 w-6 ml-4 cursor-pointer"/></Link>
-                <Link to="/pages/login"><MdAccountCircle className="h-6 w-6 ml-4 cursor-pointer"/></Link>
+                {isLoggedIn ? <>
+                  <div className="">
+                  <MdAccountCircle className="ml-2 h-7 w-7 cursor-pointer" onClick={toggleuser}/>
+                  {isUserDivOpen?<div className="fixed bg-black">
+                    <div className="rounded-full bg-white h-7 w-7">User</div>
+                    <h1>Welcome {username}!</h1>
+                    <button>Logout</button>
+                    </div>:<></>}
+                  </div>
+                </> : <Link to="/pages/login"><MdAccountCircle className="h-7 w-7 cursor-pointer"/></Link>}
               </div>
             </>
           ) : (
@@ -94,7 +123,8 @@ const Navbar = () => {
                 </>
               ) : (
                 <div className="flex  gap-4">
-                <Link to="/pages/login"><MdAccountCircle className="h-7 w-7 cursor-pointer"/></Link>
+                  {isLoggedIn ? <><MdAccountCircle className="h-7 w-7 cursor-pointer"/></> : <Link to="/pages/login"><MdAccountCircle className="h-7 w-7 cursor-pointer"/></Link>}
+               
                 <CiMenuFries className="h-6 w-6 cursor-pointer mt-1" onClick={toggleMenu} />
                 
                 </div>
