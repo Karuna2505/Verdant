@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from "react";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { Routes, Route, useNavigate } from "react-router-dom"; // Import useNavigate hook
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
 import { Plants, Pots } from "./collections";
-import { Home, Gifting, Blog ,Login,Signup } from "./pages";
+import { Home, Gifting, Blog, Login, Signup } from "./pages";
 import Detailed from "./pages/Detailed";
 import { getPlants, getPots } from "./api";
 import Cart from "./components/Cart";
@@ -11,8 +11,11 @@ import Cart from "./components/Cart";
 function App() {
   const [plants, setPlants] = useState([]);
   const [pots, setPots] = useState([]);
-  const [cart,setCart]=useState([]);
+  const [cart, setCart] = useState([]);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+  const navigate = useNavigate(); // Use useNavigate hook for programmatic navigation
+
   useEffect(() => {
     const token = localStorage.getItem("authToken");
     if (token) {
@@ -21,18 +24,18 @@ function App() {
   }, []);
 
   const handleLogin = () => {
-    // Simulate successful login
     setIsLoggedIn(true);
   };
 
   const handleLogout = () => {
-    // Log out the user
     setIsLoggedIn(false);
+    localStorage.removeItem("authToken");
+    navigate("/pages/login"); // Correctly use navigate to redirect after logout
   };
 
-  const handleCart=(product)=>{
-     setCart((prevCart)=>[...prevCart,product])
-  }
+  const handleCart = (product) => {
+    setCart((prevCart) => [...prevCart, product]);
+  };
 
   useEffect(() => {
     fetchPlants();
@@ -44,7 +47,7 @@ function App() {
       const data = await getPlants();
       setPlants(data);
     } catch (error) {
-      console.error('Error fetching plants:', error);
+      console.error("Error fetching plants:", error);
     }
   };
 
@@ -53,13 +56,13 @@ function App() {
       const data = await getPots();
       setPots(data);
     } catch (error) {
-      console.error('Error fetching pots:', error);
+      console.error("Error fetching pots:", error);
     }
   };
 
   return (
-    <BrowserRouter>
-      <Navbar isLoggedIn={isLoggedIn}/>
+    <>
+      <Navbar isLoggedIn={isLoggedIn} handleLogout={handleLogout} />
       <main className="mt-[4.7rem]">
         <Routes>
           <Route path="/" element={<Home />} />
@@ -67,15 +70,27 @@ function App() {
           <Route path="/collections/pots" element={<Pots />} />
           <Route path="/pages/gifting" element={<Gifting />} />
           <Route path="/pages/blog" element={<Blog />} />
-          <Route path="/pages/cart" element={<Cart cartItems={cart}/>} />
-          <Route path="/pages/login" element={<Login handleLogin={handleLogin}/>} />
-          <Route path="/pages/signup" element={<Signup handleLogin={handleLogin}/>} />
-          <Route path="/collections/plants/:name" element={<Detailed items={plants} type="plant" onAddToCart={handleCart}/>} />
-          <Route path="/collections/pots/:name" element={<Detailed items={pots} type="pot" onAddToCart={handleCart}/>} />
+          <Route path="/pages/cart" element={<Cart cartItems={cart} />} />
+          <Route
+            path="/pages/login"
+            element={<Login handleLogin={handleLogin} />}
+          />
+          <Route
+            path="/pages/signup"
+            element={<Signup handleLogin={handleLogin} />}
+          />
+          <Route
+            path="/collections/plants/:name"
+            element={<Detailed items={plants} type="plant" onAddToCart={handleCart} />}
+          />
+          <Route
+            path="/collections/pots/:name"
+            element={<Detailed items={pots} type="pot" onAddToCart={handleCart} />}
+          />
         </Routes>
       </main>
       <Footer />
-    </BrowserRouter>
+    </>
   );
 }
 
