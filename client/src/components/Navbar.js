@@ -11,10 +11,11 @@ const Navbar = ({ isLoggedIn, handleLogout }) => {
   const [isUserDivOpen, setIsUserDivOpen] = useState(false);
   const [username, setUsername] = useState("");
 
+  const API_URL = process.env.REACT_APP_API_BASE_URL;
   // Fetch user data on component mount
   useEffect(() => {
-    if (isLoggedIn) {
-      fetch("http://localhost:5000/api/me", {
+     
+      fetch(`${API_URL}/api/me`, {
         method: "GET",
         headers: {
           Authorization: `Bearer ${localStorage.getItem("authToken")}`, // Make sure the token is retrieved from localStorage
@@ -25,8 +26,8 @@ const Navbar = ({ isLoggedIn, handleLogout }) => {
           setUsername(data.username); // Assuming the API response contains the username
         })
         .catch((error) => console.error("Error fetching user data:", error));
-    }
-  }, [isLoggedIn]);
+    
+  }, [isLoggedIn,API_URL]);
 
   useEffect(() => {
     const handleResize = () => {

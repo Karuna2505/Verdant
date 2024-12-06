@@ -2,18 +2,20 @@ import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 
-const Login = () => {
+const Login = (handleLogin) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState(null);
   const navigate = useNavigate();
+  
+  const API_URL = process.env.REACT_APP_API_BASE_URL;
 
   const handleSubmit = async (e) => {
     e.preventDefault();
   
     try {
       // Call the backend API
-      const response = await axios.post("http://localhost:5000/login", {
+      const response = await axios.post(`${API_URL}/login`, {
         email,
         password,
       });
@@ -22,9 +24,8 @@ const Login = () => {
       console.log("Login response:", response);
   
       // Save the token in localStorage
-      localStorage.setItem("token", response.token);
+      localStorage.setItem("token", response.data.token);
       console.log("Token saved in localStorage:", localStorage.getItem("token"));
-  
       // Navigate to the home or dashboard page after successful login
       navigate("/");
   
