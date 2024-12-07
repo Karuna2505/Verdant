@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 
-const Login = (handleLogin) => {
+const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState(null);
@@ -14,7 +14,7 @@ const Login = (handleLogin) => {
     e.preventDefault();
   
     try {
-      // Call the backend API
+      // Call the backend API for login
       const response = await axios.post(`${API_URL}/login`, {
         email,
         password,
@@ -24,8 +24,9 @@ const Login = (handleLogin) => {
       console.log("Login response:", response);
   
       // Save the token in localStorage
-      localStorage.setItem("token", response.data.token);
-      console.log("Token saved in localStorage:", localStorage.getItem("token"));
+      localStorage.setItem("authToken", response.data.token);
+      console.log("Token saved in localStorage:", localStorage.getItem("authToken"));
+  
       // Navigate to the home or dashboard page after successful login
       navigate("/");
   
@@ -34,7 +35,6 @@ const Login = (handleLogin) => {
       setError(err.response?.data?.message || "Something went wrong!");
     }
   };
-  
 
   return (
     <div className="flex justify-center items-center">
@@ -75,7 +75,7 @@ const Login = (handleLogin) => {
 
           {/* Signup Redirect */}
           <p className="text-center text-sm mt-4">
-            New User? <Link to="/pages/signup" className="text-[#357b57] hover:underline">Signup</Link>
+            New User? <Link to="/signup" className="text-[#357b57] hover:underline">Signup</Link>
           </p>
         </form>
       </div>

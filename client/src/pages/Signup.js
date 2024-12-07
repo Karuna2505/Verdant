@@ -2,14 +2,14 @@ import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 
-
 const Signup = () => {
+  const [username, setUserName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState(null);
   const [success, setSuccess] = useState(null);
   const navigate = useNavigate();
-  const API_URL = process.env.REACT_APP_API_BASE_URL;
+  const API_URL = process.env.REACT_APP_API_BASE_URL || "http://localhost:5000";
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -17,9 +17,11 @@ const Signup = () => {
     try {
       // Call the backend API
       const response = await axios.post(`${API_URL}/register`, {
+        username, // Include username in the request
         email,
         password,
       });
+      console.log(response);
 
       // If successful, set success message and navigate to login
       setSuccess(response.data.message);
@@ -43,6 +45,15 @@ const Signup = () => {
 
           {/* Error Message */}
           {error && <p className="text-red-500 text-center">{error}</p>}
+
+          <input
+            type="text"
+            placeholder="Username"
+            className="w-full p-3 rounded-lg bg-white bg-opacity-50 border border-transparent focus:ring-2 focus:ring-[#357b57] focus:border-transparent outline-none"
+            value={username}
+            onChange={(e) => setUserName(e.target.value)}
+            required
+          />
 
           <input
             type="email"
@@ -70,7 +81,10 @@ const Signup = () => {
           </button>
 
           <p className="text-center text-sm mt-4">
-            Already signed up? <Link to="/pages/login" className="text-[#357b57] hover:underline">Login</Link>
+            Already signed up?{" "}
+            <Link to="/pages/login" className="text-[#357b57] hover:underline">
+              Login
+            </Link>
           </p>
         </form>
       </div>

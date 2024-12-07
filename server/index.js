@@ -1,15 +1,20 @@
 const express = require('express');
 const cors = require('cors');
 const mongoose = require('mongoose');
-require('dotenv').config();
-const app = express();
-const port = process.env.PORT || 5000;
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
+require('dotenv').config();
+
+const app = express();
+const port = process.env.PORT || 5000;
 
 // Middleware
-app.use(cors()); // Enable CORS for all origins
-app.use(express.json()); // Replaced bodyParser with express.json()
+app.use(cors({
+  origin: 'http://localhost:3000', // Replace with your frontend URL
+  methods: ['GET', 'POST', 'PUT', 'DELETE'],
+  allowedHeaders: ['Content-Type', 'Authorization'],
+}));
+app.use(express.json()); // For parsing JSON request bodies
 
 // MongoDB connection
 mongoose.connect(process.env.MONGODB_URL)
@@ -25,7 +30,7 @@ const plantSchema = new mongoose.Schema({
   image_url: String,
   description: String,
   price: Number,
-  category: String
+  category: String,
 });
 
 const Plant = mongoose.model('Plant', plantSchema);
@@ -37,15 +42,29 @@ const potSchema = new mongoose.Schema({
   description: { type: String, required: true },
   price: { type: Number, required: true },
   size: { type: String, required: true },
-  color: { type: String, required: true }
+  color: { type: String, required: true },
 });
 
 const Pot = mongoose.model('Pot', potSchema);
 
 // User Schema and Model
 const userSchema = new mongoose.Schema({
-  email: { type: String, required: true, unique: true },
-  password: { type: String, required: true },
+  username: {
+    type: String,
+    required: [true, "Username is required"],
+    unique: true,
+    trim: true,
+  },
+  email: {
+    type: String,
+    required: [true, "Email is required"],
+    unique: true,
+    match: [/\S+@\S+\.\S+/, "Please enter a valid email address"],
+  },
+  password: {
+    type: String,
+    required: [true, "Password is required"],
+  },
 });
 
 const User = mongoose.model('User', userSchema);
@@ -76,23 +95,27 @@ app.get('/pots', async (req, res) => {
 
 // Register a new user
 app.post('/register', async (req, res) => {
-  const { email, password } = req.body;
+  const { username, email, password } = req.body;
 
   try {
-    // Check if user already exists
-    const existingUser = await User.findOne({ email });
-    if (existingUser) return res.status(400).json({ message: "User already exists" });
+    // Check if email or username already exists
+    const existingEmail = await User.findOne({ email });
+    if (existingEmail) return res.status(400).json({ message: "Email already registered" });
 
+    const existingUsername = await User.findOne({ username });
+    if (existingUsername) return res.status(400).json({ message: "Username already taken" });
+    
     // Hash the password
     const hashedPassword = await bcrypt.hash(password, 10);
-
+    
     // Save user to the database
-    const user = new User({ email, password: hashedPassword });
+    const user = new User({ username, email, password: hashedPassword });
     await user.save();
-
+   
     res.status(201).json({ message: "User registered successfully" });
+    
   } catch (err) {
-    console.error("Error registering user", err);
+    console.log("Error registering user", err);
     res.status(500).json({ message: "Internal Server Error" });
   }
 });
@@ -122,17 +145,21 @@ app.post('/login', async (req, res) => {
 
 // Middleware to authenticate JWT token
 const authenticate = (req, res, next) => {
-  const token = req.headers.authorization?.split(" ")[1]; // Extract token from header
-  if (!token) return res.status(403).json({ message: "Unauthorized" });
+  const authHeader = req.headers.authorization; // Get the Authorization header
+  const token = authHeader && authHeader.split(" ")[1]; // Extract the token
+
+  if (!token) return res.status(403).json({ message: "Access token required" });
 
   try {
-    const decoded = jwt.verify(token, process.env.SECRET_KEY);
-    req.user = decoded; // Attach user info to request object
-    next();
+    const decoded = jwt.verify(token, process.env.SECRET_KEY); // Verify the token
+    req.user = decoded; // Attach user info to the request object
+    next(); // Pass control to the next middleware or route handler
   } catch (err) {
-    res.status(401).json({ message: "Invalid token" });
+    res.status(401).json({ message: "Invalid or expired token" });
   }
 };
+
+
 
 // Example: Protect the plants route
 app.get('/secure-plants', authenticate, async (req, res) => {
@@ -147,8 +174,8 @@ app.get('/secure-plants', authenticate, async (req, res) => {
 
 // Get user info
 app.get('/api/me', authenticate, (req, res) => {
-  // Send user email
-  res.json({ email: req.user.email });
+  // Assuming 'req.user' contains the decoded JWT user info
+  res.json({ email: req.user.email }); // Send the username as response
 });
 
 // Start server
