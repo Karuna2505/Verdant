@@ -75,7 +75,7 @@ const Login = () => {
 
           {/* Signup Redirect */}
           <p className="text-center text-sm mt-4">
-            New User? <Link to="/signup" className="text-[#357b57] hover:underline">Signup</Link>
+            New User? <Link to="/pages/signup" className="text-[#357b57] hover:underline">Signup</Link>
           </p>
         </form>
       </div>
