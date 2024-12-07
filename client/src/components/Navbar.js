@@ -31,7 +31,7 @@ const Navbar = ({ isLoggedIn, handleLogout }) => {
           },
         });
         const data = await response.json();
-        setUsername(data);
+        setUsername(data.email);
       } catch (error) {
         console.error("Error fetching user data:", error);
       }
