@@ -2,13 +2,16 @@ import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 
-const Login = () => {
+const Login = ({ handleLogin }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState(null);
   const navigate = useNavigate();
   
-  const API_URL = process.env.REACT_APP_API_BASE_URL;
+  const API_URL =
+  process.env.NODE_ENV === "development"
+    ? 'http://localhost:5000' // Local backend
+    : process.env.REACT_APP_API_BASE_URL; // Deployed backend
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -20,12 +23,12 @@ const Login = () => {
         password,
       });
   
-      // Log the response to check if the token is being returned
-      console.log("Login response:", response);
   
       // Save the token in localStorage
       localStorage.setItem("authToken", response.data.token);
-      console.log("Token saved in localStorage:", localStorage.getItem("authToken"));
+
+      // Update the username state in App.js
+      handleLogin({ username: response.data.username, token: response.data.token });
   
       // Navigate to the home or dashboard page after successful login
       navigate("/");

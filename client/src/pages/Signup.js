@@ -2,30 +2,40 @@ import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 
-const Signup = () => {
+const Signup = ({ handleLogin }) => { // Accept handleLogin function as a prop
   const [username, setUserName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState(null);
   const [success, setSuccess] = useState(null);
   const navigate = useNavigate();
-  const API_URL = process.env.REACT_APP_API_BASE_URL || "http://localhost:5000";
+
+  const API_URL =
+    process.env.NODE_ENV === "development"
+      ? "http://localhost:5000" // Local backend
+      : process.env.REACT_APP_API_BASE_URL; // Deployed backend
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     try {
-      // Call the backend API
+      // Call the backend API for signup
       const response = await axios.post(`${API_URL}/register`, {
         username, // Include username in the request
         email,
         password,
       });
-      console.log(response);
 
-      // If successful, set success message and navigate to login
+      // If successful, set success message and login the user automatically
       setSuccess(response.data.message);
       setError(null);
+
+      // Store the token in localStorage
+      localStorage.setItem("authToken", response.data.token);
+
+      // Log the user in immediately
+      handleLogin({ token: response.data.token, username }); // Pass username and token to handleLogin
+
       setTimeout(() => navigate("/"), 2000); // Redirect after 2 seconds
     } catch (err) {
       // Handle errors

@@ -7,30 +7,59 @@ import { Home, Gifting, Blog, Login, Signup } from "./pages";
 import Detailed from "./pages/Detailed";
 import { getPlants, getPots } from "./api";
 import Cart from "./components/Cart";
+import axios from "axios";
 
 function App() {
   const [plants, setPlants] = useState([]);
   const [pots, setPots] = useState([]);
   const [cart, setCart] = useState([]);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [username, setUsername] = useState(""); // State for storing username
+  const API_URL =
+    process.env.NODE_ENV === "development"
+      ? 'http://localhost:5000' // Local backend
+      : process.env.REACT_APP_API_BASE_URL; // Deployed backend
 
   const navigate = useNavigate(); // Use useNavigate hook for programmatic navigation
 
   useEffect(() => {
-    const token = localStorage.getItem("authToken");
-    if (token) {
-      setIsLoggedIn(true);
-    }
-  }, []);
+    const fetchUserData = async () => {
+      const token = localStorage.getItem("authToken");
+      if (token) {
+        setIsLoggedIn(true);
 
-  const handleLogin = () => {
+        try {
+          // Await the response from the '/api/me' route
+          const response = await axios.get(`${API_URL}/api/me`, {
+            headers: {
+              Authorization: `Bearer ${token}`, // Send the token in Authorization header
+            },
+          });
+
+          // Update the user state with data from /api/me
+          setUsername(response.data.username); // Assuming username is a string
+          console.log(response.data); // Log the user data
+        } catch (err) {
+          console.error("Error fetching user data:", err);
+        }
+      }
+    };
+
+    fetchUserData(); // Call the async function to fetch user data
+  }, [username]); // Empty dependency array means this will run once when the component mounts
+
+  // Handle login - now accepts username
+  const handleLogin = (user) => {
     setIsLoggedIn(true);
+    localStorage.setItem("authToken", user.token); // Store auth token
+    setUsername(user.username); // Update the username after login
   };
 
   const handleLogout = () => {
     setIsLoggedIn(false);
+    setUsername(""); // Clear the username on logout
     localStorage.removeItem("authToken");
-    navigate("/pages/login"); // Correctly use navigate to redirect after logout
+    navigate("/pages/login");
   };
 
   const handleCart = (product) => {
@@ -62,7 +91,11 @@ function App() {
 
   return (
     <>
-      <Navbar isLoggedIn={isLoggedIn} handleLogout={handleLogout} />
+      <Navbar
+        isLoggedIn={isLoggedIn}
+        username={username} // Pass username to Navbar
+        handleLogout={handleLogout}
+      />
       <main className="mt-[4.7rem]">
         <Routes>
           <Route path="/" element={<Home />} />

@@ -8,12 +8,25 @@ require('dotenv').config();
 const app = express();
 const port = process.env.PORT || 5000;
 
+const allowedOrigins = [
+  'https://verdant-frontend.onrender.com',
+  'http://localhost:3000',
+];
 // Middleware
-app.use(cors({
-  origin: 'https://verdant-frontend.onrender.com' || 'http://localhost:3000', // Replace with your frontend URL
-  methods: ['GET', 'POST', 'PUT', 'DELETE'],
-  allowedHeaders: ['Content-Type', 'Authorization'],
-}));
+app.use(
+  cors({
+    origin: (origin, callback) => {
+      if (!origin || allowedOrigins.includes(origin)) {
+        // Allow requests with no origin (like Postman) or matching origins
+        callback(null, true);
+      } else {
+        callback(new Error('Not allowed by CORS'));
+      }
+    },
+    methods: ['GET', 'POST', 'PUT', 'DELETE'],
+    allowedHeaders: ['Content-Type', 'Authorization'],
+  })
+);
 app.use(express.json()); // For parsing JSON request bodies
 
 // MongoDB connection
@@ -134,8 +147,7 @@ app.post('/login', async (req, res) => {
     if (!isPasswordValid) return res.status(401).json({ message: "Invalid credentials" });
 
     // Generate JWT token
-    const token = jwt.sign({ id: user._id, email: user.email }, process.env.SECRET_KEY, { expiresIn: "1h" });
-
+    const token = jwt.sign({ id: user._id, email: user.email, username:user.username }, process.env.SECRET_KEY, { expiresIn: "1h" });
     res.json({ token });
   } catch (err) {
     console.error("Error logging in user", err);
@@ -147,7 +159,7 @@ app.post('/login', async (req, res) => {
 const authenticate = (req, res, next) => {
   const authHeader = req.headers.authorization; // Get the Authorization header
   const token = authHeader && authHeader.split(" ")[1]; // Extract the token
-
+  
   if (!token) return res.status(403).json({ message: "Access token required" });
 
   try {
@@ -173,9 +185,15 @@ app.get('/secure-plants', authenticate, async (req, res) => {
 });
 
 // Get user info
+// Get user info
 app.get('/api/me', authenticate, (req, res) => {
-  // Assuming 'req.user' contains the decoded JWT user info
-  res.json({ email: req.user.email }); // Send the username as response
+  try {
+    // Send back both email and username from the decoded JWT
+    res.json({ username: req.user.username, email: req.user.email });
+  } catch (err) {
+    console.error("Error fetching user data", err);
+    res.status(500).json({ message: "Internal Server Error" });
+  }
 });
 
 // Start server

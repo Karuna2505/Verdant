@@ -5,48 +5,24 @@ import { FaCartShopping } from "react-icons/fa6";
 import { IoIosClose } from "react-icons/io";
 import { MdAccountCircle } from "react-icons/md";
 
-const Navbar = ({ isLoggedIn, handleLogout }) => {
+const Navbar = ({ username, isLoggedIn, handleLogout }) => {
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isUserDivOpen, setIsUserDivOpen] = useState(false);
-  const [username, setUsername] = useState("");
 
-  const API_URL =  process.env.REACT_APP_API_BASE_URL;
+  const API_URL =
+    process.env.NODE_ENV === "development"
+      ? "http://localhost:5000"
+      : process.env.REACT_APP_API_BASE_URL;
 
-  // Fetch user data on component mount
-  useEffect(() => {
-    const token = localStorage.getItem("authToken");
-    
-    if (!token) {
-      console.log("No token found, redirecting to login...");
-      return;
-    }
-
-    const fetchUserData = async () => {
-      try {
-        const response = await fetch(`${API_URL}/api/me`, {
-          method: "GET",
-          headers: {
-            "Authorization": `Bearer ${token}`,
-          },
-        });
-        const data = await response.json();
-        setUsername(data.email);
-      } catch (error) {
-        console.error("Error fetching user data:", error);
-      }
-    };
-
-    fetchUserData();
-
-  }, []);
-
+  // Handle window resizing and body overflow based on menu state
   useEffect(() => {
     const handleResize = () => {
       setWindowWidth(window.innerWidth);
     };
 
     window.addEventListener("resize", handleResize);
+
     if (isMenuOpen) {
       document.body.style.overflow = "hidden";
     } else {
@@ -112,24 +88,26 @@ const Navbar = ({ isLoggedIn, handleLogout }) => {
                   <FaCartShopping className="h-6 w-6 ml-4 cursor-pointer" />
                 </Link>
                 {isLoggedIn ? (
-                  <>
-                    <div className="user-menu">
-                      <MdAccountCircle
-                        className="ml-2 h-7 w-7 cursor-pointer"
-                        onClick={toggleUser}
-                      />
-                      {isUserDivOpen && (
-                        <div className="fixed bg-black">
-                          <div className="rounded-full bg-white h-7 w-7">User</div>
-                          <h1>Welcome {username}!</h1>
-                          <button onClick={handleLogout}>Logout</button>
-                        </div>
-                      )}
-                    </div>
-                  </>
+                  <div className="user-menu">
+                    <MdAccountCircle
+                      className="ml-2 h-7 w-7 cursor-pointer"
+                      onClick={toggleUser}
+                    />
+                    {isUserDivOpen && (
+                      <div className="absolute bg-white shadow-md rounded-lg p-4 user-menu top-10 right-0 z-50">
+                        <p className="text-black mb-2">Welcome, {username}!</p>
+                        <button
+                          className="text-white bg-[#357b57] px-4 py-2 rounded hover:bg-[#22563b] transition"
+                          onClick={handleLogout}
+                        >
+                          Logout
+                        </button>
+                      </div>
+                    )}
+                  </div>
                 ) : (
                   <Link to="/pages/login">
-                    <MdAccountCircle className="h-7 w-7 cursor-pointer" />
+                    <MdAccountCircle className="ml-2 h-7 w-7 cursor-pointer" />
                   </Link>
                 )}
               </div>
@@ -160,10 +138,26 @@ const Navbar = ({ isLoggedIn, handleLogout }) => {
               ) : (
                 <div className="flex gap-4">
                   {isLoggedIn ? (
-                    <MdAccountCircle className="h-7 w-7 cursor-pointer" />
+                    <div className="user-menu">
+                      <MdAccountCircle
+                        className="ml-2 h-7 w-7 cursor-pointer"
+                        onClick={toggleUser}
+                      />
+                      {isUserDivOpen && (
+                        <div className="absolute bg-white shadow-md rounded-lg p-4 user-menu top-14 right-6 z-50">
+                          <p className="text-black mb-2">Welcome, {username}!</p>
+                          <button
+                            className="text-white bg-[#357b57] px-4 py-2 rounded hover:bg-[#22563b] transition"
+                            onClick={handleLogout}
+                          >
+                            Logout
+                          </button>
+                        </div>
+                      )}
+                    </div>
                   ) : (
                     <Link to="/pages/login">
-                      <MdAccountCircle className="h-7 w-7 cursor-pointer" />
+                      <MdAccountCircle className="ml-2 h-7 w-7 cursor-pointer" />
                     </Link>
                   )}
 
