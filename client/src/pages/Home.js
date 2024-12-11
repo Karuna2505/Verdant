@@ -31,8 +31,8 @@ const Home = () => {
     return (
         <div className="w-full flex flex-col items-center">
             <div className="h-auto w-10/12 md:w-full text-[#357b57] main">
-                <img src={background} alt="" className="absolute top-0 lg:block hidden" />
-                <img src={background} alt="" className="absolute top-0 lg:block hidden right-4"/>
+                <img src={background} alt="" className="absolute top-0 lg:block hidden hanger" />
+                <img src={background} alt="" className="absolute top-0 lg:block hidden right-4 hanger"/>
                 <div className="flex flex-col items-center mb-28">
                     <h1 className="text-3xl md:text-4xl lg:text-6xl font-bold mt-20 mb-6 w-full md:w-2/4">Nurturing your space,naturally</h1>
                     <p className="mb-10 w-full md:w-2/4">Welcome to Verdant, your go-to place for all things plants! Whether you're a seasoned gardener or just starting, we offer a wide range of plants to beautify your home and garden. Explore our collection for detailed information, stunning images, and expert care tips. Let us help you bring nature into your life!</p>

@@ -10,10 +10,6 @@ const Navbar = ({ username, isLoggedIn, handleLogout }) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isUserDivOpen, setIsUserDivOpen] = useState(false);
 
-  const API_URL =
-    process.env.NODE_ENV === "development"
-      ? "http://localhost:5000"
-      : process.env.REACT_APP_API_BASE_URL;
 
   // Handle window resizing and body overflow based on menu state
   useEffect(() => {
@@ -79,11 +75,11 @@ const Navbar = ({ username, isLoggedIn, handleLogout }) => {
               </div>
               <div className="flex items-center relative">
                 <input
-                  className="bg-white text-[#397b57] text-sm rounded-3xl focus:outline-none py-2 pl-2 pr-8 placeholder:text-sm"
-                  placeholder="Search for plants, seeds, and pots"
+                  className="bg-white text-[#397b57] text-sm rounded-3xl focus:outline-none py-2 pl-4 pr-10 placeholder:text-sm"
+                  placeholder="Search for plants and pots"
                   onChange={(e) => console.log(e.target.value)} // Handle search input
                 />
-                <CiSearch className="h-6 w-6 absolute top-1/2 transform -translate-y-1/2 right-20 text-[#397b57] cursor-pointer" />
+                <CiSearch className="h-6 w-6 absolute top-1/2 transform -translate-y-1/2 right-[87px] text-[#397b57] cursor-pointer" />
                 <Link to="/pages/cart">
                   <FaCartShopping className="h-6 w-6 ml-4 cursor-pointer" />
                 </Link>

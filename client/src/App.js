@@ -24,15 +24,16 @@ function App() {
 
   useEffect(() => {
     const fetchUserData = async () => {
-      const token = localStorage.getItem("authToken");
-      if (token) {
+      const t = localStorage.getItem("authToken");
+      console.log(t);
+      if (t) {
         setIsLoggedIn(true);
 
         try {
           // Await the response from the '/api/me' route
           const response = await axios.get(`${API_URL}/api/me`, {
             headers: {
-              Authorization: `Bearer ${token}`, // Send the token in Authorization header
+              Authorization: `Bearer ${t}`, // Send the token in Authorization header
             },
           });
 

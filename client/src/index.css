@@ -66,3 +66,14 @@ code {
   fill: #357b57 !important;
   stroke: #357b57 !important;
 }
+
+
+.hanger{
+  animation: swing 1s ease-in-out alternate infinite;
+  transform-origin: center -2px;
+}
+
+@keyframes swing{
+  0%{transform: rotate(-5deg);}
+  100%{transform: rotate(5deg);}
+}
