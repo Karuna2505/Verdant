@@ -13,7 +13,7 @@ const PlantCard = ({ name, url, price, type }) => {
   return (
     <div className="flex flex-col items-start rounded-2xl overflow-hidden gap-2">
       <Link to={linkPath} className="overflow-hidden">
-        {!imageLoaded && <Skeleton width={336} height={256} />}
+        {!imageLoaded && <Skeleton width={270} height={256} />}
         <img
           src={url}
           alt={name}
