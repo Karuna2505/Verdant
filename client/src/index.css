@@ -74,6 +74,6 @@ code {
 }
 
 @keyframes swing{
-  0%{transform: rotate(-5deg);}
-  100%{transform: rotate(5deg);}
+  0%{transform: rotate(-2deg);}
+  100%{transform: rotate(2deg);}
 }
