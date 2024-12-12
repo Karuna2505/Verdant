@@ -46,7 +46,7 @@ function App() {
     };
 
     fetchUserData(); // Call the async function to fetch user data
-  }, [username]); // Empty dependency array means this will run once when the component mounts
+  }, [isLoggedIn]); // Empty dependency array means this will run once when the component mounts
 
   // Handle login - now accepts username
   const handleLogin = (user) => {
