@@ -9,27 +9,31 @@ const Navbar = ({ username, isLoggedIn, handleLogout }) => {
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isUserDivOpen, setIsUserDivOpen] = useState(false);
-
-
-  // Handle window resizing and body overflow based on menu state
   useEffect(() => {
     const handleResize = () => {
       setWindowWidth(window.innerWidth);
+  
+      // Optionally close the menu when resizing to a larger screen
+      if (window.innerWidth > 768 && isMenuOpen) {
+        setIsMenuOpen(false);
+      }
     };
-
+  
     window.addEventListener("resize", handleResize);
-
+  
+    // Prevent scrolling when the menu is open
     if (isMenuOpen) {
       document.body.style.overflow = "hidden";
     } else {
       document.body.style.overflow = "";
     }
-
+  
     return () => {
       window.removeEventListener("resize", handleResize);
     };
-  }, [isMenuOpen]);
-
+  }, []);
+  
+  const closeMenu = () => setIsMenuOpen(false);
   const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
   const toggleUser = () => setIsUserDivOpen(!isUserDivOpen);
 
@@ -111,26 +115,29 @@ const Navbar = ({ username, isLoggedIn, handleLogout }) => {
           ) : (
             <>
               {isMenuOpen ? (
-                <>
-                  <IoIosClose className="h-8 w-8 cursor-pointer" onClick={toggleMenu} />
+                <div className="menu">
+                  <IoIosClose className="h-8 w-8 cursor-pointer"  onClick={(e) => {
+        e.stopPropagation(); // Prevent handleClickOutside from running
+        toggleMenu();
+      }} />
                   <div className="fixed flex flex-col items-center bg-[#397b57] text-white top-16 w-full h-max right-0 py-2 text-lg z-50 menu">
-                    <Link to="/collections/plants" className="hover:font-semibold py-2">
+                    <Link to="/collections/plants" className="hover:font-semibold py-2" onClick={closeMenu}>
                       Plants
                     </Link>
-                    <Link to="/collections/pots" className="hover:font-semibold py-2">
+                    <Link to="/collections/pots" className="hover:font-semibold py-2" onClick={closeMenu}>
                       Pots
                     </Link>
-                    <Link to="/pages/gifting" className="hover:font-semibold py-2">
+                    <Link to="/pages/gifting" className="hover:font-semibold py-2" onClick={closeMenu}>
                       Gifting
                     </Link>
-                    <Link to="/pages/blog" className="hover:font-semibold py-2">
+                    <Link to="/pages/blog" className="hover:font-semibold py-2" onClick={closeMenu}>
                       Blog
                     </Link>
-                    <Link to="/pages/cart" className="hover:font-semibold py-2">
+                    <Link to="/pages/cart" className="hover:font-semibold py-2" onClick={closeMenu}>
                       Cart
                     </Link>
                   </div>
-                </>
+                </div>
               ) : (
                 <div className="flex gap-4">
                   {isLoggedIn ? (
@@ -157,7 +164,10 @@ const Navbar = ({ username, isLoggedIn, handleLogout }) => {
                     </Link>
                   )}
 
-                  <CiMenuFries className="h-6 w-6 cursor-pointer mt-1" onClick={toggleMenu} />
+                  <CiMenuFries className="h-6 w-6 cursor-pointer mt-1"  onClick={(e) => {
+        e.stopPropagation(); // Prevent handleClickOutside from running
+        toggleMenu();
+      }} />
                 </div>
               )}
             </>

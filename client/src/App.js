@@ -8,6 +8,7 @@ import Detailed from "./pages/Detailed";
 import { getPlants, getPots } from "./api";
 import Cart from "./components/Cart";
 import axios from "axios";
+import ScrollToTop from "./components/ScrollToTop";
 
 function App() {
   const [plants, setPlants] = useState([]);
@@ -24,22 +25,20 @@ function App() {
 
   useEffect(() => {
     const fetchUserData = async () => {
-      const t = localStorage.getItem("authToken");
-      console.log(t);
-      if (t) {
+      const authtoken = localStorage.getItem("authToken");
+      if (authtoken) {
         setIsLoggedIn(true);
 
         try {
           // Await the response from the '/api/me' route
           const response = await axios.get(`${API_URL}/api/me`, {
             headers: {
-              Authorization: `Bearer ${t}`, // Send the token in Authorization header
+              Authorization: `Bearer ${authtoken}`, // Send the token in Authorization header
             },
           });
 
           // Update the user state with data from /api/me
-          setUsername(response.data.username); // Assuming username is a string
-          console.log(response.data); // Log the user data
+          setUsername(response.data.username); 
         } catch (err) {
           console.error("Error fetching user data:", err);
         }
@@ -92,6 +91,7 @@ function App() {
 
   return (
     <>
+    <ScrollToTop />
       <Navbar
         isLoggedIn={isLoggedIn}
         username={username} // Pass username to Navbar
