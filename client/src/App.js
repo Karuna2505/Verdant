@@ -14,6 +14,7 @@ function App() {
   const [plants, setPlants] = useState([]);
   const [pots, setPots] = useState([]);
   const [cart, setCart] = useState([]);
+  const [count,setCount]=useState("");
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [username, setUsername] = useState(""); // State for storing username
   const API_URL =
@@ -38,15 +39,36 @@ function App() {
           });
 
           // Update the user state with data from /api/me
-          setUsername(response.data.username); 
+          setUsername(response.data.username);
         } catch (err) {
           console.error("Error fetching user data:", err);
         }
       }
     };
-
+    fetchCartData();
     fetchUserData(); // Call the async function to fetch user data
-  }, [isLoggedIn]); // Empty dependency array means this will run once when the component mounts
+  }, [isLoggedIn]); // Dependency on isLoggedIn, to fetch user data when login status changes
+
+
+  const fetchCartData = async (userId) => {
+    try {
+      const response = await axios.get(`${API_URL}/api/cart`, {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("authToken")}`,
+        },
+      });
+      setCart(response.data.cart); // Set the fetched cart data
+      setCount(response.data.cart.quantity)
+    } catch (err) {
+      console.error("Error fetching cart data:", err);
+    }
+  };
+  // Fetch user's cart
+  useEffect(() => {
+    
+    fetchCartData();
+  },[])
+  
 
   // Handle login - now accepts username
   const handleLogin = (user) => {
@@ -58,18 +80,50 @@ function App() {
   const handleLogout = () => {
     setIsLoggedIn(false);
     setUsername(""); // Clear the username on logout
+    setCart([]); // Clear the cart on logout
     localStorage.removeItem("authToken");
     navigate("/pages/login");
   };
-
-  const handleCart = (product) => {
-    setCart((prevCart) => [...prevCart, product]);
+  const handleAddToCart = async (item, count,type) => {
+    try {
+      const token = localStorage.getItem("authToken"); // Get the token for the logged-in user
+      if (!token) {
+        alert("Please log in to add items to the cart");
+        return;
+      }
+      const response = await axios.post(
+        `${API_URL}/api/cart/add`, // Endpoint for adding to cart
+        {
+          type: type,      // Send item type (e.g., "plant" or "pot")
+          count: count,    // Send item count (quantity)
+          itemId: item._id // Send the item's unique ID (either plantId or potId)
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`, // Pass token for authorization
+          },
+        }
+      );
+       
+      // Handle successful response
+      if (response.data.message) {
+        fetchCartData();
+        alert("Item added to cart successfully!");
+      } else {
+        alert("Failed to add item to cart");
+      }
+    } catch (error) {
+      console.error("Error adding item to cart:", error);
+      alert("Something went wrong while adding item to cart");
+    }
   };
+  
+  
 
   useEffect(() => {
     fetchPlants();
     fetchPots();
-  }, []);
+  }, []); // Fetch plants and pots data once when the component mounts
 
   const fetchPlants = async () => {
     try {
@@ -91,7 +145,7 @@ function App() {
 
   return (
     <>
-    <ScrollToTop />
+      <ScrollToTop />
       <Navbar
         isLoggedIn={isLoggedIn}
         username={username} // Pass username to Navbar
@@ -104,7 +158,7 @@ function App() {
           <Route path="/collections/pots" element={<Pots />} />
           <Route path="/pages/gifting" element={<Gifting />} />
           <Route path="/pages/blog" element={<Blog />} />
-          <Route path="/pages/cart" element={<Cart cartItems={cart} />} />
+          <Route path="/pages/cart" element={<Cart cartItems={cart} count={count}/>} />
           <Route
             path="/pages/login"
             element={<Login handleLogin={handleLogin} />}
@@ -115,11 +169,11 @@ function App() {
           />
           <Route
             path="/collections/plants/:name"
-            element={<Detailed items={plants} type="plant" onAddToCart={handleCart} />}
+            element={<Detailed items={plants} type="plant" onAddToCart={handleAddToCart} />}
           />
           <Route
             path="/collections/pots/:name"
-            element={<Detailed items={pots} type="pot" onAddToCart={handleCart} />}
+            element={<Detailed items={pots} type="pot" onAddToCart={handleAddToCart} />}
           />
         </Routes>
       </main>

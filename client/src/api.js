@@ -14,3 +14,14 @@ export const getPots = async () => {
     if(!response.ok) throw new Error('Network response was not ok.');
     return response.json();
 }
+
+export const getPlantById = async (id) => {
+    try {
+        const plants = await getPlants(); // Fetch all plants first
+        const plant = plants.find((plant) => (plant._id === id)); // Find the plant by IDs
+        return plant;
+      } catch (error) {
+        console.error("Error fetching plant by ID:", error);
+        return null;
+      }
+  };

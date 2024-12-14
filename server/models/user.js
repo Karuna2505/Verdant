@@ -1,10 +1,10 @@
-// models/User.js
 const mongoose = require('mongoose');
 
 // Cart Item Schema
 const cartItemSchema = new mongoose.Schema({
-  productId: { type: mongoose.Schema.Types.ObjectId, required: true },
-  quantity: { type: Number, required: true, default: 1 },
+  plantId: { type: mongoose.Schema.Types.ObjectId, ref: 'Plant' }, // Reference to Plant model
+  potId: { type: mongoose.Schema.Types.ObjectId, ref: 'Pot' }, // Reference to Pot model
+  quantity: { type: Number, required: true, default: 1 }, // Default quantity is 1
 });
 
 // User Schema
@@ -25,7 +25,7 @@ const userSchema = new mongoose.Schema({
     type: String,
     required: [true, "Password is required"],
   },
-  cart: [cartItemSchema], // Add the cart as an array of cart items
+  cart: [cartItemSchema], // Array of cart items, each with a plantId or potId
 });
 
 const User = mongoose.model('User', userSchema);
