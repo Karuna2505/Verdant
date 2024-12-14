@@ -65,9 +65,8 @@ function App() {
   };
   // Fetch user's cart
   useEffect(() => {
-    
     fetchCartData();
-  },[])
+  },[cart])
   
 
   // Handle login - now accepts username

@@ -2,6 +2,7 @@ const express = require('express');
 const mongoose = require('mongoose');
 const User = require('../models/user');
 const Plants = require('../models/plants');
+const Pots = require('../models/pots');
 const authenticate = require('../middleware/auth');
 
 const router = express.Router();
@@ -24,12 +25,12 @@ router.post('/add', authenticate, async (req, res) => {
 
     } else if (type === 'pot') {
       // Look up pot by itemId and add to cart
-      const pot = await Pot.findById(itemId);
+      const pot = await Pots.findById(itemId);
       if (!pot) {
         return res.status(404).json({ message: 'Pot not found' });
       }
       // Add pot to cart (example logic)
-      await Cart.addPotToCart(pot, count);
+      user.cart.push({ potId: itemId, quantity: count });
     } else {
       return res.status(400).json({ message: 'Invalid item type' });
     }
@@ -52,14 +53,18 @@ router.delete('/remove', authenticate, async (req, res) => {
   try {
     const user = await User.findById(req.user.id);
     if (!user) return res.status(404).json({ message: "User not found" });
-
-    // Check if plantId or potId is provided
+    
     if (plantId) {
-      user.cart = user.cart.filter(item => item.productId?.toString() !== plantId);
+      user.cart = user.cart.filter(item => {
+        return !(item.plantId && item.plantId._id.toString() === plantId);
+      });
     }
     if (potId) {
-      user.cart = user.cart.filter(item => item.potId?.toString() !== potId);
+      user.cart = user.cart.filter(item => {
+        return !(item.potId && item.potId._id.toString() === potId);
+      });
     }
+    
 
     await user.save();
 
@@ -71,12 +76,12 @@ router.delete('/remove', authenticate, async (req, res) => {
 });
 
 
+
 // Get cart
 // Get cart
 router.get('/', authenticate, async (req, res) => {
   try {
     const user = await User.findById(req.user.id)
-      .lean()
       .populate({
         path: 'cart.plantId',
         select: 'name price image_url',
