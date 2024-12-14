@@ -6,6 +6,7 @@ const Login = ({ handleLogin }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState(null);
+   const [success, setSuccess] = useState(null);
   const navigate = useNavigate();
   
   const API_URL =
@@ -22,16 +23,17 @@ const Login = ({ handleLogin }) => {
         email,
         password,
       });
-  
+      setSuccess("Login successfull");
+      setError(null);
   
       // Save the token in localStorage
       localStorage.setItem("authToken", response.data.token);
 
       // Update the username state in App.js
       handleLogin({ username: response.data.username, token: response.data.token });
-  
+      
       // Navigate to the home or dashboard page after successful login
-      navigate("/");
+      setTimeout(() => navigate("/"), 2000); 
   
     } catch (err) {
       // Handle errors (e.g., invalid credentials)
@@ -44,7 +46,7 @@ const Login = ({ handleLogin }) => {
       <div className="bg-white bg-opacity-20 backdrop-blur-lg p-8 rounded-xl shadow-xl w-80 m-16 text-[#357b57]">
         <form className="space-y-6" onSubmit={handleSubmit}>
           <h2 className="text-center text-3xl font-bold text-[#357b57]">LOGIN</h2>
-
+          {success && <p className="text-green-500 text-center">{success}</p>}
           {/* Error Message */}
           {error && <p className="text-red-500 text-center">{error}</p>}
 
