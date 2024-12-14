@@ -45,7 +45,7 @@ const Cart = ({ cartItems }) => {
         console.error("No authentication token found");
         return;
       }
-      const response = await axios.delete("http://localhost:5000/api/cart/clear", {
+      const response = await axios.delete(`${API_URL}/api/cart/clear`, {
         headers: {
           Authorization: `Bearer ${authtoken}`,
         },
