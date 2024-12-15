@@ -116,4 +116,37 @@ router.delete('/clear', authenticate, async (req, res) => {
   }
 });
 
+router.put("/",authenticate, async (req, res) => {
+  const { cartItemId, quantity } = req.body;
+
+  if (!cartItemId || !quantity) {
+    return res.status(400).json({ message: "Invalid request data" });
+  }
+
+  try {
+    const user = await User.findById(req.user.id);
+    if (!user) return res.status(404).json({ message: "User not found" });
+   
+     // Find the cart item and update its quantity
+  let itemFound = false;
+  user.cart = user.cart.map(item => {
+    if (item._id.toString() === cartItemId) {
+      item.quantity = quantity; // Update the quantity
+      itemFound = true;
+    }
+    return item;
+  });
+
+  if (!itemFound) {
+    return res.status(404).json({ message: "Item not found in cart" });
+  }
+
+    await user.save();
+    return res.status(200).json({ message: "Cart updated successfully" });
+  } catch (error) {
+    return res.status(500).json({ message: "Error updating cart", error });
+  }
+});
+
+
 module.exports = router;

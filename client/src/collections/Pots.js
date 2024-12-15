@@ -5,7 +5,7 @@ import PlantCard from '../components/PlantCard';
 import Skeleton from 'react-loading-skeleton';
 import 'react-loading-skeleton/dist/skeleton.css';
 
-const Pots = () => {
+const Pots = ({onAddToCart,cartItems}) => {
   const [pots, setPots] = useState([]);
   const [loading, setLoading] = useState(true); // Manage loading state
 
@@ -59,10 +59,10 @@ const Pots = () => {
             pots.map((pot) => (
               <PlantCard
                 key={pot.name} // Ensure each child has a unique key
-                name={pot.name}
-                url={pot.image_url}
-                price={pot.price}
+                item={pot}
                 type="pot"
+                cartItems={cartItems}
+                onAddToCart={onAddToCart}
               />
             ))
           )}

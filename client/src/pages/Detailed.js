@@ -6,7 +6,6 @@ const Detailed = ({ items, type, onAddToCart }) => {
   const [count, setCount] = useState(1);
   const { name } = useParams();
   const item = items.find(item => item.name === name);
-
   if (!item) {
     return <div>{`${type.charAt(0).toUpperCase() + type.slice(1)} not found`}</div>;
   }

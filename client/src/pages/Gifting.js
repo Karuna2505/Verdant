@@ -11,7 +11,7 @@ import PlantCard from '../components/PlantCard';
 import Skeleton from 'react-loading-skeleton';
 import 'react-loading-skeleton/dist/skeleton.css';
 
-const Gifting = () => {
+const Gifting = ({onAddToCart,cartItems}) => {
   const [plants, setPlants] = useState([]);
   const [loading, setLoading] = useState(true);
 
@@ -76,10 +76,10 @@ const Gifting = () => {
               : plants.map((plant) => (
                   <SwiperSlide key={plant.name}>
                     <PlantCard
-                      name={plant.name}
-                      url={plant.image_url}
-                      price={plant.price}
+                       item={plant}
                       type="plant"
+                      cartItems={cartItems}
+                      onAddToCart={onAddToCart}
                     />
                   </SwiperSlide>
                 ))}

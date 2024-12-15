@@ -45,9 +45,9 @@ function App() {
         }
       }
     };
-    fetchCartData();
-    fetchUserData(); // Call the async function to fetch user data
-  }, [isLoggedIn]); // Dependency on isLoggedIn, to fetch user data when login status changes
+    fetchUserData();
+    fetchCartData(); // Call the async function to fetch user data
+  }, [isLoggedIn,cart,count]); // Dependency on isLoggedIn, to fetch user data when login status changes
 
 
   const fetchCartData = async (userId) => {
@@ -63,11 +63,6 @@ function App() {
       console.error("Error fetching cart data:", err);
     }
   };
-  // Fetch user's cart
-  useEffect(() => {
-    fetchCartData();
-  },[cart])
-  
 
   // Handle login - now accepts username
   const handleLogin = (user) => {
@@ -83,6 +78,7 @@ function App() {
     localStorage.removeItem("authToken");
     navigate("/pages/login");
   };
+
   const handleAddToCart = async (item, count,type) => {
     try {
       const token = localStorage.getItem("authToken"); // Get the token for the logged-in user
@@ -106,8 +102,9 @@ function App() {
        
       // Handle successful response
       if (response.data.message) {
-        fetchCartData();
-        alert("Item added to cart successfully!");
+        setCart(response.data.cart);
+        setCount(response.data.cart.quantity);  
+        navigate("/pages/cart");
       } else {
         alert("Failed to add item to cart");
       }
@@ -152,10 +149,10 @@ function App() {
       />
       <main className="mt-[4.7rem]">
         <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/collections/plants" element={<Plants />} />
-          <Route path="/collections/pots" element={<Pots />} />
-          <Route path="/pages/gifting" element={<Gifting />} />
+          <Route path="/" element={<Home  onAddToCart={handleAddToCart} cartItems={cart}/>} />
+          <Route path="/collections/plants" element={<Plants onAddToCart={handleAddToCart} cartItems={cart}/>} />
+          <Route path="/collections/pots" element={<Pots onAddToCart={handleAddToCart} cartItems={cart}/>} />
+          <Route path="/pages/gifting" element={<Gifting  onAddToCart={handleAddToCart} cartItems={cart}/>} />
           <Route path="/pages/blog" element={<Blog />} />
           <Route path="/pages/cart" element={<Cart cartItems={cart} count={count}/>} />
           <Route

@@ -14,7 +14,7 @@ import Skeleton from "react-loading-skeleton";
 import 'react-loading-skeleton/dist/skeleton.css';
 import { Navigation } from 'swiper/modules';
 
-const Home = () => {
+const Home = ({onAddToCart,cartItems}) => {
     const [plants, setPlants] = useState([]);
     const [loading, setLoading] = useState(true); // Manage loading state
 
@@ -84,10 +84,10 @@ const Home = () => {
                             : plants.map((plant) => (
                                 <SwiperSlide key={plant.name}>
                                     <PlantCard
-                                        name={plant.name}
-                                        url={plant.image_url}
-                                        price={plant.price}
+                                        item={plant}
                                         type="plant"
+                                        cartItems={cartItems}
+                                        onAddToCart={onAddToCart}
                                     />
                                 </SwiperSlide>
                               ))}

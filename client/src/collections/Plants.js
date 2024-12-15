@@ -5,10 +5,10 @@ import Filter from '../components/Filter';
 import Skeleton from 'react-loading-skeleton';
 import 'react-loading-skeleton/dist/skeleton.css';
 
-const Plants = () => {
+const Plants = ({onAddToCart,cartItems}) => {
   const [plants, setPlants] = useState([]);
   const [loading, setLoading] = useState(true); // Manage loading state
-
+  
   useEffect(() => {
     fetchPlants();
   }, []);
@@ -24,8 +24,6 @@ const Plants = () => {
       setLoading(false); // Set loading to false
     }
   };
-
-  const isDataAvailable = !loading && plants.length > 0;
 
   return (
     <div className="w-full text-[#357b57]">
@@ -60,10 +58,10 @@ const Plants = () => {
             plants.map((plant) => (
               <PlantCard
                 key={plant.name} // Ensure each child has a unique key
-                name={plant.name}
-                url={plant.image_url}
-                price={plant.price}
+                item={plant}
                 type="plant"
+                cartItems={cartItems}
+                onAddToCart={onAddToCart}
               />
             ))
           )}

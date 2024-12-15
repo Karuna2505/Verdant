@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import axios from "axios";
 
 const Cart = ({ cartItems }) => {
@@ -10,32 +10,55 @@ const Cart = ({ cartItems }) => {
 
   const [cartDetails, setCartDetails] = useState(cartItems); // Use cartItems as initial state
 
+  useEffect(() => {
+    setCartDetails(cartItems);
+  }, [cartItems]);
   // Update quantity of a specific item
-  const handleQuantityChange = async (id, increment) => {
+  const handleQuantityChange = async (cartItemId, increment) => {
+    // Update cart details locally
     const updatedCart = cartDetails.map((item) =>
-      item.plantId._id === id
+      item._id === cartItemId
         ? { ...item, quantity: Math.max(1, item.quantity + increment) }
         : item
     );
+  
     setCartDetails(updatedCart);
-
+  
     try {
       const token = localStorage.getItem("authToken");
       if (!token) return;
-
-      await axios.put(
-        `${API_URL}/api/cart`,
-        { itemId: id, quantity: updatedCart.find((item) => item.plantId._id === id).quantity },
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
+  
+      // Find the updated item
+      const updatedItem = updatedCart.find((item) => item._id === cartItemId);
+  
+      if (!updatedItem) {
+        console.error(`Cart item with id ${cartItemId} not found.`);
+        return;
+      }
+  
+      // Prepare the request payload
+      const payload = {
+        cartItemId, // Unique identifier for the cart item
+        quantity: updatedItem.quantity, // Updated quantity
+      };
+  
+      // Send PUT request to update the cart
+      await axios.put(`${API_URL}/api/cart`, payload, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+  
+      console.log("Cart updated successfully!");
     } catch (error) {
       console.error("Error updating cart quantity:", error);
+  
+      // Revert to previous cart details in case of error
+      setCartDetails(cartDetails);
     }
   };
+  
+
 
 
   const clearCart = async () => {
@@ -88,9 +111,9 @@ const Cart = ({ cartItems }) => {
   const calculateTotal = () => {
     return cartDetails.reduce((total, item) => {
       const product = item.plantId || item.potId;
-      if (!product || !product.price) return total; // Ensure price exists
-      return total + product.price * item.quantity;
-    }, 0);
+      if (!product || !product.price) return total;
+      return (total + product.price * item.quantity);
+    }, 0).toFixed(2);
   };
   return (
     <div className="flex flex-col md:flex-row p-6">
@@ -135,14 +158,14 @@ const Cart = ({ cartItems }) => {
           <div className="flex items-center space-x-4">
             <button
               className="px-3 py-1 bg-gray-200 text-[#357b57] rounded"
-              onClick={() => handleQuantityChange(product._id, -1)}
+              onClick={() => handleQuantityChange(item._id, -1)}
             >
               -
             </button>
             <span className="font-medium">{item.quantity}</span>
             <button
               className="px-3 py-1 bg-gray-200 text-[#357b57] rounded"
-              onClick={() => handleQuantityChange(product._id, 1)}
+              onClick={() => handleQuantityChange(item._id, 1)}
             >
               +
             </button>

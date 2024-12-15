@@ -1,38 +1,70 @@
-import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
-import Skeleton from 'react-loading-skeleton';
-import 'react-loading-skeleton/dist/skeleton.css';
+import React, { useState } from "react";
+import { Link } from "react-router-dom";
+import Skeleton from "react-loading-skeleton";
+import "react-loading-skeleton/dist/skeleton.css";
 
-const PlantCard = ({ name, url, price, type }) => {
+const PlantCard = ({ type, item, onAddToCart, cartItems }) => {
   const [imageLoaded, setImageLoaded] = useState(false);
+  if (!item.name) return null;
 
-  if (!name) return null; 
+  const linkPath =
+    type === "plant" ? `/collections/plants/${item.name}` : `/collections/pots/${item.name}`;
 
-  const linkPath = type === "plant" ? `/collections/plants/${name}` : `/collections/pots/${name}`;
+  const isItemInCart = cartItems.some(cartItem => {
+    if (type === "plant") {
+      return cartItem.plantId && cartItem.plantId._id.toString() === item._id.toString();
+    } else if (type === "pot") {
+      return cartItem.potId && cartItem.potId._id.toString() === item._id.toString();
+    }
+    return false;
+  });
+
+  const handleAddToCart = () => {
+    if (!isItemInCart) {
+      onAddToCart(item, 1, type);
+    }
+  };
+
+  const isCartEmpty = cartItems.length === 0;
 
   return (
-    <div className="flex flex-col items-start rounded-2xl overflow-hidden gap-2">
+    <div className="flex flex-col items-start overflow-hidden gap-1 rounded-2xl shadow-lg hover:shadow-xl transition-shadow duration-300">
       <Link to={linkPath} className="overflow-hidden">
         {!imageLoaded && <Skeleton width={270} height={256} />}
         <img
-          src={url}
-          alt={name}
-          className={`w-[21rem] md:w-60 h-64 transition-transform duration-300 ease-in-out hover:scale-105 ${!imageLoaded ? 'hidden' : ''}`}
+          src={item.image_url}
+          alt={item.name}
+          className={`w-[21rem] md:w-60 h-64 transition-transform duration-300 ease-in-out hover:scale-105 rounded-t-2xl ${
+            !imageLoaded ? "hidden" : ""
+          }`}
           onLoad={() => setImageLoaded(true)}
         />
       </Link>
-      <p className="font-bold">
-        {name || <Skeleton width={120} />}
-      </p>
-      <h1 className="text-base">
-        {price ? `Rs.${price}` : <Skeleton width={80} />}
-      </h1>
-      <Link
-        to={linkPath}
-        className="md:w-60 w-[21rem] h-auto bg-[#357b57] text-white rounded-b-2xl text-sm font-medium py-3 hover:text-[0.9rem] text-center"
-      >
-        VIEW PRODUCT
-      </Link>
+      <p className="font-bold">{item.name || <Skeleton width={120} />}</p>
+      <h1 className="text-base">{item.price ? `Rs.${item.price}` : <Skeleton width={80} />}</h1>
+      <div className="flex flex-col gap-2 md:w-60 w-[21rem]">
+        {isCartEmpty || !isItemInCart ? (
+          <button
+            onClick={handleAddToCart}
+            className="h-auto bg-[#357b57] text-white text-sm font-medium text-center py-2"
+          >
+            ADD TO CART
+          </button>
+        ) : (
+          <Link
+            to="/pages/cart"
+            className="h-auto bg-[#357b57] text-white text-sm font-medium text-center py-2"
+          >
+            GO TO CART
+          </Link>
+        )}
+        <Link
+          to={linkPath}
+          className="h-auto text-[#357b57] bg-white rounded-b-2xl text-sm font-medium py-2 hover:text-[0.9rem] text-center border border-[#357b57] hover:bg-[#d1d8d5]"
+        >
+          VIEW PRODUCT
+        </Link>
+      </div>
     </div>
   );
 };
