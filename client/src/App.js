@@ -168,11 +168,11 @@ function App() {
           />
           <Route
             path="/collections/plants/:name"
-            element={<Detailed items={plants} type="plant" onAddToCart={handleAddToCart} />}
+            element={<Detailed items={plants} type="plant" onAddToCart={handleAddToCart} cartItems={cart}/>}
           />
           <Route
             path="/collections/pots/:name"
-            element={<Detailed items={pots} type="pot" onAddToCart={handleAddToCart} />}
+            element={<Detailed items={pots} type="pot" onAddToCart={handleAddToCart} cartItems={cart}/>}
           />
         </Routes>
       </main>
