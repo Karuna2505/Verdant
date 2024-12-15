@@ -22,8 +22,6 @@ const Cart = ({ cartItems }) => {
         : item
     );
   
-    setCartDetails(updatedCart);
-  
     try {
       const token = localStorage.getItem("authToken");
       if (!token) return;

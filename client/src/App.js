@@ -9,6 +9,8 @@ import { getPlants, getPots } from "./api";
 import Cart from "./components/Cart";
 import axios from "axios";
 import ScrollToTop from "./components/ScrollToTop";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 function App() {
   const [plants, setPlants] = useState([]);
@@ -104,7 +106,7 @@ function App() {
       if (response.data.message) {
         setCart(response.data.cart);
         setCount(response.data.cart.quantity);  
-        navigate("/pages/cart");
+        toast.success('Item added to cart!');
       } else {
         alert("Failed to add item to cart");
       }
@@ -142,6 +144,7 @@ function App() {
   return (
     <>
       <ScrollToTop />
+      <ToastContainer position="top-right" autoClose={1000} />
       <Navbar
         isLoggedIn={isLoggedIn}
         username={username} // Pass username to Navbar
