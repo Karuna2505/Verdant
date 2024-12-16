@@ -10,10 +10,6 @@ const Cart = ({ cartItems }) => {
 
   const [cartDetails, setCartDetails] = useState(cartItems); // Use cartItems as initial state
 
-  useEffect(() => {
-    setCartDetails(cartItems);
-  }, [cartItems]);
-
   // Update quantity of a specific item (Optimistic UI approach)
   const handleQuantityChange = async (cartItemId, increment) => {
     // Optimistically update cart details locally
