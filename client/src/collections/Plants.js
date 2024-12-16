@@ -1,14 +1,15 @@
-import React, { useState, useEffect } from 'react';
-import PlantCard from '../components/PlantCard';
-import { getPlants } from '../api';
-import Filter from '../components/Filter';
-import Skeleton from 'react-loading-skeleton';
-import 'react-loading-skeleton/dist/skeleton.css';
+import React, { useState, useEffect } from "react";
+import PlantCard from "../components/PlantCard";
+import { getPlants } from "../api";
+import Filter from "../components/Filter";
+import Skeleton from "react-loading-skeleton";
+import "react-loading-skeleton/dist/skeleton.css";
 
-const Plants = ({onAddToCart,cartItems}) => {
+const Plants = ({ onAddToCart, cartItems }) => {
   const [plants, setPlants] = useState([]);
   const [loading, setLoading] = useState(true); // Manage loading state
-  
+  const [sortCriteria, setSortCriteria] = useState(""); // Manage sorting state
+
   useEffect(() => {
     fetchPlants();
   }, []);
@@ -19,10 +20,25 @@ const Plants = ({onAddToCart,cartItems}) => {
       const data = await getPlants();
       setPlants(data);
     } catch (error) {
-      console.error('Error fetching plants:', error);
+      console.error("Error fetching plants:", error);
     } finally {
       setLoading(false); // Set loading to false
     }
+  };
+
+  const sortPlants = (criteria) => {
+    let sortedPlants = [...plants];
+    if (criteria === "priceHighToLow") {
+      sortedPlants.sort((a, b) => b.price - a.price);
+    } else if (criteria === "priceLowToHigh") {
+      sortedPlants.sort((a, b) => a.price - b.price);
+    } else if (criteria === "aToZ") {
+      sortedPlants.sort((a, b) => a.name.localeCompare(b.name));
+    } else if (criteria === "zToA") {
+      sortedPlants.sort((a, b) => b.name.localeCompare(a.name));
+    }
+    setPlants(sortedPlants);
+    setSortCriteria(criteria);
   };
 
   return (
@@ -33,14 +49,32 @@ const Plants = ({onAddToCart,cartItems}) => {
         despite the traffic and pollution, you and your plants live in a small bubble, protected from the adversities of
         city troubles! Create your perfect indoor oasis with plants.
       </p>
+
       <div className="flex gap-1 px-4 md:px-12">
-        <div className="w-2/12 my-6 mr-4 ml-10 sm:flex sm:flex-col gap-4 hidden text-[15px]">
+        <div className="w-2/12">
+        <div className="my-6 mr-4 ml-10 sm:flex sm:flex-col">
+          <h1 className="text-lg mb-2">Sort By:</h1>
+          <select
+            id="sort"
+            value={sortCriteria}
+            onChange={(e) => sortPlants(e.target.value)}
+            className="border border-gray-300 rounded-md px-4 py-2"
+          >
+            <option value="">Select</option>
+            <option value="priceHighToLow">Price: High to Low</option>
+            <option value="priceLowToHigh">Price: Low to High</option>
+            <option value="aToZ">Name: A to Z</option>
+            <option value="zToA">Name: Z to A</option>
+          </select>
+        </div>
+        <div className="my-6 mr-4 ml-10 sm:flex sm:flex-col gap-4 hidden text-[15px]">
           <div className="flex justify-between">
             <h1 className="text-lg">Filters</h1>
             <h1 className="font-medium sliding-underline pt-1">CLEAR ALL</h1>
           </div>
           <Filter title="Type of Plants" category={["Indoor Plants", "Outdoor Plants"]} />
           <Filter title="Price" category={["Below 100", "100-200", "200-300", "Above 300"]} />
+        </div>
         </div>
         <div className="w-full md:w-10/12 flex justify-center items-center flex-wrap gap-4 md:gap-12 my-6">
           {loading || plants.length === 0 ? ( // Show skeletons if loading or no data
@@ -57,7 +91,7 @@ const Plants = ({onAddToCart,cartItems}) => {
           ) : (
             plants.map((plant) => (
               <PlantCard
-                key={plant.name} // Ensure each child has a unique key
+                key={plant.id} // Ensure each child has a unique key
                 item={plant}
                 type="plant"
                 cartItems={cartItems}

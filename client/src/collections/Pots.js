@@ -8,6 +8,7 @@ import 'react-loading-skeleton/dist/skeleton.css';
 const Pots = ({onAddToCart,cartItems}) => {
   const [pots, setPots] = useState([]);
   const [loading, setLoading] = useState(true); // Manage loading state
+   const [sortCriteria, setSortCriteria] = useState(""); // Manage sorting state
 
   useEffect(() => {
     fetchPots();
@@ -25,6 +26,21 @@ const Pots = ({onAddToCart,cartItems}) => {
     }
   };
 
+  const sortPots = (criteria) => {
+    let sortedPots = [...pots];
+    if (criteria === "priceHighToLow") {
+      sortedPots.sort((a, b) => b.price - a.price);
+    } else if (criteria === "priceLowToHigh") {
+      sortedPots.sort((a, b) => a.price - b.price);
+    } else if (criteria === "aToZ") {
+      sortedPots.sort((a, b) => a.name.localeCompare(b.name));
+    } else if (criteria === "zToA") {
+      sortedPots.sort((a, b) => b.name.localeCompare(a.name));
+    }
+    setPots(sortedPots);
+    setSortCriteria(criteria);
+  };
+
   return (
     <div className="w-full text-[#357b57]">
       <h1 className="font-medium text-3xl py-4 pt-10 md:px-20 px-10">Pots & Planters</h1>
@@ -34,7 +50,24 @@ const Pots = ({onAddToCart,cartItems}) => {
         best!
       </p>
       <div className="flex gap-1 px-4 md:px-12">
-        <div className="w-2/12 my-6 mr-4 ml-10 sm:flex sm:flex-col gap-4 hidden text-[15px]">
+        <div className='w-2/12'> 
+      <div className="my-6 mr-4 ml-10 sm:flex sm:flex-col">
+          <h1 className="text-lg mb-2">Sort By:</h1>
+          <select
+            id="sort"
+            value={sortCriteria}
+            onChange={(e) => sortPots(e.target.value)}
+            className="border border-gray-300 rounded-md px-4 py-2"
+          >
+            <option value="">Select</option>
+            <option value="priceHighToLow">Price: High to Low</option>
+            <option value="priceLowToHigh">Price: Low to High</option>
+            <option value="aToZ">Name: A to Z</option>
+            <option value="zToA">Name: Z to A</option>
+          </select>
+        </div>
+        <div className="my-6 mr-4 ml-10 sm:flex sm:flex-col gap-4 hidden text-[15px]">
+
           <div className="flex justify-between">
             <h1 className="text-lg">Filters</h1>
             <h1 className="font-medium sliding-underline pt-1">CLEAR ALL</h1>
@@ -42,6 +75,7 @@ const Pots = ({onAddToCart,cartItems}) => {
           <Filter title="Price" category={["Below 100", "100-200", "200-300", "Above 300"]} />
           <Filter title="Color" category={["Black", "Blue", "White", "Violet", "Pink", "Yellow", "Green"]} />
           <Filter title="Size" category={["Extra Small", "Small", "Medium", "Large", "Extra Large"]} />
+        </div>
         </div>
         <div className="w-full md:w-9/12 flex justify-center items-center flex-wrap gap-4 md:gap-8 my-6">
           {loading || pots.length === 0 ? (

@@ -8,6 +8,7 @@ const Cart = ({ cartItems }) => {
       ? "http://localhost:5000"
       : process.env.REACT_APP_API_BASE_URL;
 
+
   const [cartDetails, setCartDetails] = useState(cartItems); // Use cartItems as initial state
 
   // Update quantity of a specific item (Optimistic UI approach)
@@ -139,6 +140,10 @@ const Cart = ({ cartItems }) => {
             <p className="text-xl text-[#357b57]">Your cart is empty.</p>
           ) : (
             cartDetails.map((item) => {
+              const linkPath =
+              item.plantId
+                ? `/collections/plants/${encodeURIComponent(item.plantId.name)}`
+                : `/collections/pots/${encodeURIComponent(item.potId.name)}`;
               const product = item.plantId || item.potId; // Assign either plantId or potId
               if (!product) return null; // Skip if neither exists
 
@@ -148,11 +153,13 @@ const Cart = ({ cartItems }) => {
                   className="flex justify-between items-center bg-[#eaf4eb] p-4 rounded-lg shadow-md"
                 >
                   <div className="flex items-center">
+                    <Link to={linkPath}>
                     <img
                       src={product.image_url}
                       alt={product.name}
                       className="w-20 h-20 object-cover rounded-lg"
                     />
+                    </Link>
                     <div className="ml-4">
                       <p className="font-medium text-lg">{product.name}</p>
                       <p className="text-sm text-gray-500">{product.color || "N/A"}</p>
