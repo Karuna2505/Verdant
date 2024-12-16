@@ -25,7 +25,9 @@ function App() {
       : process.env.REACT_APP_API_BASE_URL; // Deployed backend
 
   const navigate = useNavigate(); // Use useNavigate hook for programmatic navigation
-
+  window.addEventListener("beforeunload", function () {
+    localStorage.removeItem("authToken");
+  });
   useEffect(() => {
     const fetchUserData = async () => {
       const authtoken = localStorage.getItem("authToken");
