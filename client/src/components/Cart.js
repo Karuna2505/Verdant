@@ -109,7 +109,6 @@ const Cart = ({ cartItems }) => {
       return (total + product.price * item.quantity);
     }, 0).toFixed(2);
   };
-
   return (
     <div className="flex flex-col md:flex-row p-6">
       <div className="w-full md:w-8/12 p-4">
@@ -140,12 +139,17 @@ const Cart = ({ cartItems }) => {
             <p className="text-xl text-[#357b57]">Your cart is empty.</p>
           ) : (
             cartDetails.map((item) => {
-              const linkPath =
-              item.plantId
-                ? `/collections/plants/${encodeURIComponent(item.plantId.name)}`
-                : `/collections/pots/${encodeURIComponent(item.potId.name)}`;
-              const product = item.plantId || item.potId; // Assign either plantId or potId
-              if (!product) return null; // Skip if neither exists
+              const product = item.plantId || item.potId;
+              if (!product || !product.name) {
+                console.warn("Invalid product or missing name:", item);
+                return null;
+              }
+            
+              const linkPath = item.plantId
+    ? `/collections/plants/${encodeURIComponent(product.name)}`
+    : `/collections/pots/${encodeURIComponent(product.name)}`;
+
+              
 
               return (
                 <div

@@ -148,28 +148,36 @@ const Pots = ({ onAddToCart, cartItems }) => {
         </div>
 
         <div className="w-full flex justify-center items-center flex-wrap gap-4 md:gap-6 my-6">
-          {loading || filteredPots.length === 0 ? (
-            Array(6)
-              .fill(null)
-              .map((_, index) => (
-                <div key={index} className="flex flex-col items-start">
-                  <Skeleton width={240} height={256} />
-                  <Skeleton width={120} />
-                  <Skeleton width={80} />
-                  <Skeleton width={240} height={48} />
-                </div>
-              ))
-          ) : (
-            filteredPots.map((pot) => (
-              <PotCard
-                key={pot.id}
-                item={pot}
-                type="pot"
-                cartItems={cartItems}
-                onAddToCart={onAddToCart}
-              />
-            ))
-          )}
+        {loading ? (
+  // Show skeleton loaders when loading
+  Array(6)
+    .fill(null)
+    .map((_, index) => (
+      <div key={index} className="flex flex-col items-start">
+        <Skeleton width={240} height={256} />
+        <Skeleton width={120} />
+        <Skeleton width={80} />
+        <Skeleton width={240} height={48} />
+      </div>
+    ))
+) : filteredPots.length === 0 ? (
+  // Show "No results found" message when no plants match
+  <div className="text-center text-gray-500 text-lg my-10">
+    <p>No pots available. Try adjusting filters or sorting options.</p>
+  </div>
+) : (
+  // Show plant cards when data is available
+  filteredPots.map((pot) => (
+    <PotCard
+      key={pot.id}
+      item={pot}
+      type="pot"
+      cartItems={cartItems}
+      onAddToCart={onAddToCart}
+    />
+  ))
+)}
+
         </div>
       </div>
     </div>

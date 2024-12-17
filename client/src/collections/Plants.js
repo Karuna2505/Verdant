@@ -91,7 +91,9 @@ const Plants = ({ onAddToCart, cartItems }) => {
     <div className="w-full text-[#357b57]">
       <h1 className="font-medium text-3xl pb-4 pt-10 md:px-20 px-10">Plants</h1>
       <p className="text-lg pb-4 md:px-20 px-10">
-        Indoor plants are an absolute delight no matter where you live...
+      Indoor plants are an absolute delight no matter where you live. But keeping plants allows you to ensure that
+        despite the traffic and pollution, you and your plants live in a small bubble, protected from the adversities of
+        city troubles! Create your perfect indoor oasis with plants.
       </p>
 
       <div className="flex gap-1 px-4 md:px-12">
@@ -110,7 +112,7 @@ const Plants = ({ onAddToCart, cartItems }) => {
               <option value="aToZ">Name: A to Z</option>
               <option value="zToA">Name: Z to A</option>
             </select>
-            <div className="absolute top-1/2 right-4 transform -translate-y-1/2">
+            <div className="absolute top-1/2 right-4 transform -translate-y-1/2 pointer-events-none">
       ▼
     </div>
           </div>
@@ -142,28 +144,36 @@ const Plants = ({ onAddToCart, cartItems }) => {
 
         <div className="w-full flex justify-center items-center flex-wrap gap-4 md:gap-6 my-6">
 
-          {loading || filteredPlants.length === 0 ? (
-            Array(6)
-              .fill(null)
-              .map((_, index) => (
-                <div key={index} className="flex flex-col items-start">
-                  <Skeleton width={240} height={256} />
-                  <Skeleton width={120} />
-                  <Skeleton width={80} />
-                  <Skeleton width={240} height={48} />
-                </div>
-              ))
-          ) : (
-            filteredPlants.map((plant) => (
-              <PlantCard
-                key={plant.id}
-                item={plant}
-                type="plant"
-                cartItems={cartItems}
-                onAddToCart={onAddToCart}
-              />
-            ))
-          )}
+        {loading ? (
+  // Show skeleton loaders when loading
+  Array(6)
+    .fill(null)
+    .map((_, index) => (
+      <div key={index} className="flex flex-col items-start">
+        <Skeleton width={240} height={256} />
+        <Skeleton width={120} />
+        <Skeleton width={80} />
+        <Skeleton width={240} height={48} />
+      </div>
+    ))
+) : filteredPlants.length === 0 ? (
+  // Show "No results found" message when no plants match
+  <div className="text-center text-gray-500 text-lg my-10">
+    <p>No plants available. Try adjusting filters or sorting options.</p>
+  </div>
+) : (
+  // Show plant cards when data is available
+  filteredPlants.map((plant) => (
+    <PlantCard
+      key={plant.id}
+      item={plant}
+      type="plant"
+      cartItems={cartItems}
+      onAddToCart={onAddToCart}
+    />
+  ))
+)}
+
         </div>
       </div>
     </div>
