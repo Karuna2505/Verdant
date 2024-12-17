@@ -6,7 +6,7 @@ const Detailed = ({ items, type, onAddToCart, cartItems }) => {
   const [count, setCount] = useState(1);
   const { name } = useParams();
   const item = items.find(item => item.name === name);
-  
+
   if (!item) {
     return <div>{`${type.charAt(0).toUpperCase() + type.slice(1)} not found`}</div>;
   }
@@ -43,8 +43,20 @@ const Detailed = ({ items, type, onAddToCart, cartItems }) => {
         <div className='flex flex-col w-full md:w-2/3 md:ml-8 mt-4 md:mt-0'>
           <h1 className='text-2xl md:text-3xl font-bold mb-2'>{item.name}</h1>
           <h2 className='text-xl md:text-2xl font-semibold mb-4'>₹{item.price}</h2>
-          <p className='text-lg md:text-lg font-semibold mb-4'>{item.description}</p>
-
+          <p className='text-lg font-semibold mb-4'>{item.description}</p>
+          {item.color && (
+            <div className="flex">
+              <div
+                className="w-4 h-4 rounded-full m-2 border-2" 
+                style={{
+                  backgroundColor: item.color,
+                  borderColor: item.color.toLowerCase() === "white" ? "black" : item.color,
+                  borderStyle: "solid",
+                }}
+              ></div>
+              <p className="text-lg font-semibold mb-4">{item.color}</p>
+            </div>
+          )}
           <div className='w-fit flex items-center gap-4 border-2 border-[#357b57] rounded-xl p-2 mb-4'>
             <button onClick={() => handleCountChange(-1)} className='bg-[#d3e2db] p-2 rounded-full hover:bg-gray-300'>
               <FaMinus />
@@ -57,24 +69,24 @@ const Detailed = ({ items, type, onAddToCart, cartItems }) => {
 
           <div className='flex flex-col gap-4 w-max'>
             {isItemInCart ? (
-              <Link 
-                to="/pages/cart" 
+              <Link
+                to="/pages/cart"
                 className='w-full bg-[#357b57] font-semibold text-white px-4 py-2 rounded-lg hover:bg-[#b1c6bb] hover:text-[#357b57] text-center'
               >
                 GO TO CART
               </Link>
             ) : (
-              <button 
-                onClick={() => onAddToCart(item, count, type)} 
+              <button
+                onClick={() => onAddToCart(item, count, type)}
                 className='w-full bg-[#357b57] font-semibold text-white px-4 py-2 rounded-lg hover:bg-[#b1c6bb] hover:text-[#357b57]'
               >
                 ADD TO CART
               </button>
             )}
             <Link to="/pages/cart">
-            <button className='w-full bg-[#357b57] font-semibold text-white px-4 py-2 rounded-lg hover:bg-[#b1c6bb] hover:text-[#357b57]'>
-              BUY NOW
-            </button>
+              <button className='w-full bg-[#357b57] font-semibold text-white px-4 py-2 rounded-lg hover:bg-[#b1c6bb] hover:text-[#357b57]'>
+                BUY NOW
+              </button>
             </Link>
           </div>
         </div>

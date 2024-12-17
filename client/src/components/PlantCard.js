@@ -30,7 +30,7 @@ const PlantCard = ({ type, item, onAddToCart, cartItems }) => {
   return (
     <div className="flex flex-col items-start overflow-hidden gap-1 rounded-2xl shadow-lg hover:shadow-xl transition-shadow duration-300">
       <Link to={linkPath} className="overflow-hidden">
-        {!imageLoaded && <Skeleton width={270} height={256} />}
+        {!imageLoaded && <Skeleton width={240} height={256} />}
         <img
           src={item.image_url}
           alt={item.name}
