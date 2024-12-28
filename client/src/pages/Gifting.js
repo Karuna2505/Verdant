@@ -32,7 +32,7 @@ const Gifting = ({onAddToCart,cartItems}) => {
 
   return (
     <div className="text-center flex flex-col items-center">
-      <img src="/image.png" alt="Gifting" className="w-full mb-6" />
+      <img src="/image.png" alt="Gifting" className="w-full h-[200px] object-cover mb-2 md:mb-6" />
       <div className="w-full flex flex-col md:flex-row justify-evenly text-[#357b57]">
         {[
           { icon: <FaTruck className="text-6xl m-2" />, label: 'Quick Delivery' },

@@ -96,9 +96,9 @@ const Plants = ({ onAddToCart, cartItems }) => {
         city troubles! Create your perfect indoor oasis with plants.
       </p>
 
-      <div className="flex gap-1 px-4 md:px-12">
-        <div className="w-[28%]">
-          <div className="my-6 ml-10 flex items-center border border-[#357b57] rounded-md overflow-hidden shadow-sm relative cursor-pointer">
+      <div className="flex-col md:flex md:flex-row gap-1 px-4 md:px-12">
+        <div className="flex flex-col items-center w-full md:w-[28%]">
+          <div className="w-10/12 my-6 md:ml-10 flex items-center border border-[#357b57] rounded-md overflow-hidden shadow-sm relative cursor-pointer">
             <h1 className="text-lg font-medium bg-[#357b57] text-white py-2 px-3">Sort by:</h1>
             <select
               id="sort"
@@ -117,7 +117,7 @@ const Plants = ({ onAddToCart, cartItems }) => {
     </div>
           </div>
 
-          <div className="my-6 ml-10 sm:flex sm:flex-col gap-4 hidden text-[15px]">
+          <div className="w-10/12 my-6 md:ml-10 sm:flex sm:flex-col gap-4 text-[15px]">
             <div className="flex justify-between">
             <h1 className="text-lg font-semibold">Filters</h1>
           <button

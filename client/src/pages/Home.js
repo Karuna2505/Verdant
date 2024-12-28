@@ -95,21 +95,21 @@ const Home = ({onAddToCart,cartItems}) => {
                 </div>
             </div>
             <div className="w-11/12 md:w-10/12 flex-col lg:flex lg:flex-row gap-6 text-[#357b57] my-10">
-                <div className="flex p-10 bg-[#b1c6bb] rounded-xl m-4">
+                <div className="flex md:p-10 p-4 bg-[#b1c6bb] rounded-xl m-4">
                     <FaTruck className="text-6xl m-4" />
                     <div>
                         <h1 className="font-bold">Free Delivery</h1>
                         <p>Free Shipping all over the world for orders above Rs500</p>
                     </div>
                 </div>
-                <div className="flex p-10 bg-[#b1c6bb] rounded-xl m-4">
+                <div className="flex md:p-10 p-4 bg-[#b1c6bb] rounded-xl m-4">
                     <MdOutlinePayment className="text-6xl m-4" />
                     <div>
                         <h1 className="font-bold">Safe Payment</h1>
                         <p>With our payment gateway don't worry about your information</p>
                     </div>
                 </div>
-                <div className="flex p-10 bg-[#b1c6bb] rounded-xl m-4">
+                <div className="flex md:p-10 p-4 bg-[#b1c6bb] rounded-xl m-4">
                     <FaRegIdCard className="text-6xl m-4" />
                     <div>
                         <h1 className="font-bold">Friendly Services</h1>

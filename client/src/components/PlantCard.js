@@ -40,7 +40,7 @@ const PlantCard = ({ type, item, onAddToCart, cartItems }) => {
       </Link>
       <p className="font-bold">{item.name || <Skeleton width={120} />}</p>
       <h1 className="text-base">{item.price ? `Rs.${item.price}` : <Skeleton width={80} />}</h1>
-      <div className="flex flex-col gap-2 md:w-60 w-[21rem]">
+      <div className="flex flex-col gap-2 md:w-60 w-full">
         {isCartEmpty || !isItemInCart ? (
           <button onClick={handleAddToCart} className="h-auto bg-[#357b57] text-white text-sm font-medium text-center py-2">
             ADD TO CART
